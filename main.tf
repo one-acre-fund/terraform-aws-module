@@ -23,20 +23,19 @@ resource "aws_internet_gateway" "this" {
   })
 }
 
-
 ##############################################
-# Public Subnets 
+# Public Subnets
 ##############################################
 resource "aws_subnet" "public" {
   count = length(var.public_subnet_cidrs)
 
   vpc_id                  = aws_vpc.this.id
   cidr_block              = var.public_subnet_cidrs[count.index]
-  availability_zone       = var.azs[count.index]
+  availability_zone       = var.azs[count.index % length(var.azs)]
   map_public_ip_on_launch = true
 
   tags = merge(local.common_tags, {
-    Name = "snet-pub-${var.environment}-${var.azs[count.index]}-${count.index + 1}"
+    Name = "snet-pub-${var.environment}-${var.azs[count.index % length(var.azs)]}-${count.index + 1}"
     Tier = "public"
   })
 }
@@ -49,10 +48,10 @@ resource "aws_subnet" "private" {
 
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.private_subnet_cidrs[count.index]
-  availability_zone = var.azs[count.index]
+  availability_zone = var.azs[count.index % length(var.azs)]
 
   tags = merge(local.common_tags, {
-    Name = "snet-pri-${var.environment}-${var.azs[count.index]}-${count.index + 1}"
+    Name = "snet-pri-${var.environment}-${var.azs[count.index % length(var.azs)]}-${count.index + 1}"
     Tier = "private"
   })
 }
@@ -65,7 +64,7 @@ resource "aws_eip" "nat" {
   domain = "vpc"
 
   tags = merge(local.common_tags, {
-    Name = "nat-${var.environment}-${var.azs[count.index]}"
+    Name = "nat-${var.environment}-${var.azs[count.index % length(var.azs)]}"
   })
 
   depends_on = [aws_internet_gateway.this]
@@ -78,10 +77,10 @@ resource "aws_nat_gateway" "this" {
   count = local.nat_gateway_count
 
   allocation_id = aws_eip.nat[count.index].id
-  subnet_id     = aws_subnet.public[count.index].id
+  subnet_id     = aws_subnet.public[count.index % length(aws_subnet.public)].id
 
   tags = merge(local.common_tags, {
-    Name = "nat-${var.environment}-${var.azs[count.index]}"
+    Name = "nat-${var.environment}-${var.azs[count.index % length(var.azs)]}"
   })
 
   depends_on = [aws_internet_gateway.this]
@@ -131,14 +130,14 @@ resource "aws_route" "private_nat" {
 
   route_table_id         = aws_route_table.private[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = var.single_nat_gateway ? aws_nat_gateway.this[0].id : aws_nat_gateway.this[count.index].id
+  nat_gateway_id         = var.single_nat_gateway ? aws_nat_gateway.this[0].id : aws_nat_gateway.this[count.index % local.nat_gateway_count].id
 }
 
 resource "aws_route_table_association" "private" {
   count = length(var.private_subnet_cidrs)
 
   subnet_id      = aws_subnet.private[count.index].id
-  route_table_id = var.single_nat_gateway ? aws_route_table.private[0].id : aws_route_table.private[count.index].id
+  route_table_id = var.single_nat_gateway ? aws_route_table.private[0].id : aws_route_table.private[count.index % length(aws_route_table.private)].id
 }
 
 ##############################################
