@@ -1,5 +1,5 @@
 ﻿provider "aws" {
-  region = "eu-west-1"       
+  region = "eu-west-1"
 }
 
 module "vpc" {
@@ -12,7 +12,7 @@ module "vpc" {
   managed_by   = var.managed_by
   vpc_cidr     = var.vpc_cidr
 
-  azs                  = var.azs  
+  azs                  = var.azs
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
 
