@@ -1,9 +1,9 @@
-environment = "dev"
-application = "my-app"
-cost_centre = "GLB-GR"
-owner       = "platform-team"
-managed_by  = "terraform"
-vpc_cidr    = "172.20.0.0/16"
-azs = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+environment          = "dev"
+application          = "my-app"
+cost_centre          = "GLB-GR"
+owner                = "platform-team"
+managed_by           = "terraform"
+vpc_cidr             = "172.20.0.0/16"
+azs                  = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
 public_subnet_cidrs  = ["172.20.0.0/23", "172.20.2.0/23", "172.20.4.0/23"]
 private_subnet_cidrs = ["172.20.10.0/22", "172.20.20.0/23", "172.20.14.0/22"]

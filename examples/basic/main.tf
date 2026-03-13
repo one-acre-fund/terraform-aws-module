@@ -1,16 +1,16 @@
-﻿provider "aws" {
+provider "aws" {
   region = "eu-west-1"
 }
 
 module "vpc" {
   source = "../.."
 
-  environment  = var.environment
-  application  = var.application
-  cost_centre  = var.cost_centre
-  owner        = var.owner
-  managed_by   = var.managed_by
-  vpc_cidr     = var.vpc_cidr
+  environment = var.environment
+  application = var.application
+  cost_centre = var.cost_centre
+  owner       = var.owner
+  managed_by  = var.managed_by
+  vpc_cidr    = var.vpc_cidr
 
   azs                  = var.azs
   public_subnet_cidrs  = var.public_subnet_cidrs
