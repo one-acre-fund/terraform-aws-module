@@ -1,0 +1,29 @@
+﻿name: Update Docs
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "*.tf"
+
+jobs:
+  docs:
+    name: terraform-docs
+    runs-on: ubuntu-latest #will change once our AWS ready runners are available
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Render terraform-docs
+        uses: terraform-docs/gh-actions@v1.1.0
+        with:
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+          git-commit-message: "docs: auto-update README via terraform-docs [skip ci]"
+          recursive: "true"
+          recursive-path: modules

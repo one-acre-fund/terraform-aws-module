@@ -1,0 +1,4 @@
+﻿*                    @your-org/platform-team
+*.tf                 @your-org/platform-team
+.github/workflows/   @your-org/platform-team @your-org/devops-team
+examples/            @your-org/platform-team

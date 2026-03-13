@@ -1,0 +1,9 @@
+variable "environment" { type = string }
+variable "application" { type = string }
+variable "cost_centre" { type = string }
+variable "owner" { type = string }
+variable "managed_by" { type = string }
+variable "vpc_cidr" { type = string }
+variable "azs" { type = list(string) }
+variable "public_subnet_cidrs" { type = list(string) }
+variable "private_subnet_cidrs" { type = list(string) }
