@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.2...v1.0.3) (2026-03-13)
+
+
+### Bug Fixes
+
+* terraform fmt and validation ([a598aec](https://github.com/one-acre-fund/terraform-aws-vpc/commit/a598aec0e45190e3eac7ecb8801db6ce478540df))
+
 ## [1.0.2](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.1...v1.0.2) (2026-03-13)
 
 
