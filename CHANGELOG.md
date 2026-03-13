@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.4...v1.0.5) (2026-03-13)
+
+
+### Bug Fixes
+
+* fixed tflint ([05539af](https://github.com/one-acre-fund/terraform-aws-vpc/commit/05539af4b7cb47bb7ae839d3d9c2f54d7b184478))
+
 ## [1.0.4](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.3...v1.0.4) (2026-03-13)
 
 
