@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.5...v1.0.6) (2026-03-13)
+
+
+### Bug Fixes
+
+* fixed overlap cidr ([0a7eab8](https://github.com/one-acre-fund/terraform-aws-vpc/commit/0a7eab884120768c4fb97771bb6eadd5f88b6f73))
+
 ## [1.0.5](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.0.4...v1.0.5) (2026-03-13)
 
 
