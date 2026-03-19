@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.2.0...v1.3.0) (2026-03-19)
+
+
+### Features
+
+* added database module ([dc8d917](https://github.com/one-acre-fund/terraform-aws-vpc/commit/dc8d917ac72d2c0d111ef26fa61f62737adbfbf1))
+
 # [1.2.0](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.1.0...v1.2.0) (2026-03-19)
 
 
