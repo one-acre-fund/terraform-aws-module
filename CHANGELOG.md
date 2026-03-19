@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.5.0...v1.5.1) (2026-03-19)
+
+
+### Bug Fixes
+
+* fixed error of terraform warnings ([31b72bf](https://github.com/one-acre-fund/terraform-aws-vpc/commit/31b72bfe9967779cf4f1ce911b954c0f5bffa614))
+* fixed error of terraform warnings ([66be45e](https://github.com/one-acre-fund/terraform-aws-vpc/commit/66be45e1809f892034fb3ce2b4c0baf61de3c615))
+
 # [1.5.0](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.4.0...v1.5.0) (2026-03-19)
 
 
