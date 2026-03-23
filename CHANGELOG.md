@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.3...v1.6.4) (2026-03-23)
+
+
+### Bug Fixes
+
+* fixed sg module ([5796638](https://github.com/one-acre-fund/terraform-aws-module/commit/57966381529eedafd624d53295b3ba91786185c4))
+
 ## [1.6.3](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.2...v1.6.3) (2026-03-23)
 
 
