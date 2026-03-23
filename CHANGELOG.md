@@ -1,3 +1,10 @@
+## [1.5.6](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.5...v1.5.6) (2026-03-23)
+
+
+### Bug Fixes
+
+* fixed tagging ([bfa4e0d](https://github.com/one-acre-fund/terraform-aws-module/commit/bfa4e0d982834178c94372768124e1f60cb3547c))
+
 ## [1.5.5](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.4...v1.5.5) (2026-03-23)
 
 
