@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.7...v1.6.0) (2026-03-23)
+
+
+### Features
+
+* Added security group module ([3d92f86](https://github.com/one-acre-fund/terraform-aws-module/commit/3d92f86af16ea166aa4bf99dcc2fd89e359157f0))
+
 ## [1.5.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.6...v1.5.7) (2026-03-23)
 
 
