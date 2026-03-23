@@ -218,3 +218,4 @@ resource "aws_flow_log" "this" {
     Name = "flow-logs-${var.environment}"
   })
 }
+
