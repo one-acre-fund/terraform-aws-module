@@ -28,6 +28,7 @@ resource "aws_db_instance" "this" {
   username                    = var.username
   skip_final_snapshot         = var.skip_final_snapshot
   manage_master_user_password = var.manage_master_user_password
+  publicly_accessible         = var.publicly_accessible
 
   tags = merge(local.common_tags, {
     Name = var.db_identifier

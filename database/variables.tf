@@ -106,7 +106,6 @@ variable "manage_master_user_password" {
   description = ""
   type        = bool
   default     = true
-
 }
 
 variable "publicly_accessible" {
