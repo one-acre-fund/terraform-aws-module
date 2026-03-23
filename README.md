@@ -21,6 +21,38 @@ Reusable Terraform modules for provisioning core AWS infrastructure components w
 <!-- BEGIN_FOLDER_STRUCTURE -->
 ```
 .
+├── database
+│   ├── locals.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── variables.tf
+│   └── versions.tf
+├── examples
+│   ├── basic
+│   │   ├── main.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│   └── complete
+│       ├── main.tf
+│       ├── terraform.tfvars
+│       └── variables.tf
+├── global
+│   └── sg
+│       ├── locals.tf
+│       ├── main.tf
+│       ├── outputs.tf
+│       ├── variables.tf
+│       └── versions.tf
+├── vpc
+│   ├── locals.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── variables.tf
+│   └── versions.tf
+├── CHANGELOG.md
+└── README.md
+
+8 directories, 23 files
 ```
 <!-- END_FOLDER_STRUCTURE -->
 
@@ -109,4 +141,27 @@ See [`examples/basic`](./examples/basic) for a full single-environment deploymen
 ## Requirements
 
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
 <!-- END_TF_DOCS -->
