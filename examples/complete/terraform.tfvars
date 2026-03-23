@@ -26,9 +26,9 @@ flow_logs_retention_days = 90
 ##############################################
 # Database
 ##############################################
-db_engine          = "sqlserver-ee"
-db_engine_version  = "15.00.4312.2.v1"
-db_instance_class  = "db.r6i.large"
-db_storage         = 100
-db_username        = "rdsadmin"
-db_license_model   = "license-included"
+db_engine         = "sqlserver-ee"
+db_engine_version = "15.00.4312.2.v1"
+db_instance_class = "db.r6i.large"
+db_storage        = 100
+db_username       = "rdsadmin"
+db_license_model  = "license-included"
