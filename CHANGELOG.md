@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.1...v1.5.2) (2026-03-23)
+
+
+### Bug Fixes
+
+* fixed naming conventions ([72c2bab](https://github.com/one-acre-fund/terraform-aws-module/commit/72c2babe6eb881fbefdf8e71ad25fc4f1962aa1d))
+
 ## [1.5.1](https://github.com/one-acre-fund/terraform-aws-vpc/compare/v1.5.0...v1.5.1) (2026-03-19)
 
 
