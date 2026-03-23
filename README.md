@@ -1,35 +1,112 @@
-<!-- BEGIN_TF_DOCS -->
-## Requirements
+# terraform-aws-module
 
-No requirements.
+Reusable Terraform modules for provisioning core AWS infrastructure components with consistent tagging, naming conventions, and security defaults across environments.
 
-## Providers
-
-No providers.
+---
 
 ## Modules
 
-No modules.
+| Module | Path | Description |
+|--------|------|-------------|
+| VPC | [`vpc/`](./vpc) | VPC, public/private subnets, Internet Gateway, NAT Gateways, route tables, and VPC Flow Logs |
+| Security Group | [`global/sg/`](./global/sg) | Security Group with configurable dynamic ingress and egress rules |
+| Database | [`database/`](./database) | RDS instance with DB subnet group |
 
-## Resources
+---
 
-No resources.
+## Folder Structure
 
-## Inputs
+> Auto-updated on every push by the `Update Docs` GitHub Actions workflow.
 
-No inputs.
+<!-- BEGIN_FOLDER_STRUCTURE -->
+```
+.
+```
+<!-- END_FOLDER_STRUCTURE -->
 
-## Outputs
+---
 
-No outputs.
-<!-- END_TF_DOCS -->Version 1.5.2
-Version 1.5.3
-Version 1.5.4
-Version 1.5.5
-Version 1.5.6
-Version 1.5.7
-Version 1.6.0
-Version 1.6.1
-Version 1.6.2
-Version 1.6.3
-Version 1.6.4
+## Usage
+
+### Basic Example
+
+Minimal single-NAT VPC + Security Group + RDS — suitable for development environments:
+
+```hcl
+module "vpc" {
+  source = "git::https://github.com/one-acre-fund/terraform-aws-module.git//vpc"
+
+  environment = "dev"
+  application = "my-app"
+  cost_centre = "GLB-GR"
+  owner       = "platform-team"
+  managed_by  = "terraform"
+
+  vpc_cidr             = "172.20.0.0/16"
+  azs                  = ["eu-west-1a", "eu-west-1b"]
+  public_subnet_cidrs  = ["172.20.0.0/23", "172.20.2.0/23"]
+  private_subnet_cidrs = ["172.20.10.0/22", "172.20.14.0/22"]
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+}
+
+module "rds_sg" {
+  source = "git::https://github.com/one-acre-fund/terraform-aws-module.git//global/sg"
+
+  name        = "my-app-dev-rds-sg"
+  description = "Allow SQL Server traffic from private subnets"
+  vpc_id      = module.vpc.vpc_id
+
+  environment = "dev"
+  application = "my-app"
+  cost_centre = "GLB-GR"
+  owner       = "platform-team"
+  managed_by  = "terraform"
+
+  ingress_rules = [
+    {
+      from_port   = 1433
+      to_port     = 1433
+      protocol    = "tcp"
+      cidr_blocks = ["172.20.10.0/22", "172.20.14.0/22"]
+    }
+  ]
+
+  egress_rules = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+}
+
+module "database" {
+  source = "git::https://github.com/one-acre-fund/terraform-aws-module.git//database"
+
+  environment = "dev"
+  application = "my-app"
+  cost_centre = "GLB-GR"
+  owner       = "platform-team"
+  managed_by  = "terraform"
+
+  db_identifier        = "my-app-dev-db"
+  db_subnet_group_name = "my-app-dev-subnet-grp"
+  subnet_ids           = module.vpc.private_subnet_ids
+
+  vpc_security_group_ids      = [module.rds_sg.security_group_id]
+  manage_master_user_password = true
+  skip_final_snapshot         = true
+}
+```
+
+See [`examples/basic`](./examples/basic) for a full single-environment deployment and [`examples/complete`](./examples/complete) for a production-ready multi-AZ setup with all modules, VPC Flow Logs, and per-AZ NAT Gateways.
+
+---
+
+## Requirements
+
+<!-- BEGIN_TF_DOCS -->
+<!-- END_TF_DOCS -->

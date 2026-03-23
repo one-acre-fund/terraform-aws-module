@@ -4,7 +4,8 @@ on:
   push:
     branches: ["**"]
     paths:
-      - "*.tf"
+      - "**/*.tf"       # any .tf change in any subdirectory
+      - "**/README.md"  # manual README edits also re-trigger
 
 jobs:
   docs:
@@ -16,13 +17,64 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history so git push works correctly
 
-      - name: Render terraform-docs
+      # ---------------------------------------------------------------
+      # Step 1 — inject an up-to-date folder tree into README.md
+      # Uses markers: <!-- BEGIN_FOLDER_STRUCTURE --> / <!-- END_FOLDER_STRUCTURE -->
+      # terraform-docs (step 2) will commit both changes in one commit.
+      # ---------------------------------------------------------------
+      - name: Update folder structure in README
+        run: |
+          sudo apt-get install -y tree > /dev/null 2>&1
+
+          # Generate tree, exclude noise
+          tree -I '.git|.terraform|*.tfstate*|.DS_Store' --dirsfirst > /tmp/tree_output.txt
+
+          # Write Python helper to a temp file to avoid heredoc quoting issues
+          cat > /tmp/update_readme.py << 'PYEOF'
+          import re
+
+          with open('README.md', 'r') as f:
+              content = f.read()
+
+          with open('/tmp/tree_output.txt', 'r') as f:
+              tree_output = f.read().strip()
+
+          block = (
+              '<!-- BEGIN_FOLDER_STRUCTURE -->\n'
+              '```\n'
+              + tree_output + '\n'
+              '```\n'
+              '<!-- END_FOLDER_STRUCTURE -->'
+          )
+
+          if '<!-- BEGIN_FOLDER_STRUCTURE -->' in content:
+              content = re.sub(
+                  r'<!-- BEGIN_FOLDER_STRUCTURE -->.*?<!-- END_FOLDER_STRUCTURE -->',
+                  block,
+                  content,
+                  flags=re.DOTALL
+              )
+          else:
+              content += '\n\n' + block + '\n'
+
+          with open('README.md', 'w') as f:
+              f.write(content)
+          PYEOF
+
+          python3 /tmp/update_readme.py
+
+      # ---------------------------------------------------------------
+      # Step 2 — render terraform-docs into <!-- BEGIN_TF_DOCS --> section
+      # and push a single commit that includes both changes above.
+      # ---------------------------------------------------------------
+      - name: Render terraform-docs and commit
         uses: terraform-docs/gh-actions@v1.1.0
         with:
           working-dir: .
           output-file: README.md
           output-method: inject
           git-push: "true"
-          git-commit-message: "docs: auto-update README via terraform-docs [skip ci]"
-          # Removed recursive and recursive-path to avoid errors if modules folder doesn't exist
+          git-commit-message: "docs: auto-update README [skip ci]"
