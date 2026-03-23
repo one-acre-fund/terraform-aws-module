@@ -1,5 +1,22 @@
-#database resources
+# ---------------------------
+# DB Subnet Group
+# ---------------------------
+resource "aws_db_subnet_group" "this" {
+  name       = var.db_subnet_group_name
+  subnet_ids = var.subnet_ids
 
+  tags = merge(local.common_tags, {
+    Name = var.db_subnet_group_name
+  })
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# ---------------------------
+# RDS Instance
+# ---------------------------
 resource "aws_db_instance" "this" {
   allocated_storage           = var.storage
   identifier                  = var.db_identifier
@@ -11,17 +28,10 @@ resource "aws_db_instance" "this" {
   username                    = var.username
   skip_final_snapshot         = var.skip_final_snapshot
   manage_master_user_password = var.manage_master_user_password
+
   tags = merge(local.common_tags, {
     Name = var.db_identifier
   })
-}
 
-
-resource "aws_db_subnet_group" "this" {
-  name       = var.db_subnet_group_name
-  subnet_ids = var.subnet_ids
-
-  tags = merge(local.common_tags, {
-    Name = "My DB subnet group"
-  })
+  depends_on = [aws_db_subnet_group.this]
 }
