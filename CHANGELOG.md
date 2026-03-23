@@ -1,3 +1,10 @@
+## [1.5.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.6...v1.5.7) (2026-03-23)
+
+
+### Bug Fixes
+
+* Added life cycle ([19c7c8a](https://github.com/one-acre-fund/terraform-aws-module/commit/19c7c8af7a85536b6a95ee110cb7916a3c335fbc))
+
 ## [1.5.6](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.5...v1.5.6) (2026-03-23)
 
 
