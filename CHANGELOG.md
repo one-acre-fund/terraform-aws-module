@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.4...v1.7.0) (2026-03-23)
+
+
+### Features
+
+* fixed examples folder and readme update ([70d5bdc](https://github.com/one-acre-fund/terraform-aws-module/commit/70d5bdcb37206a59380786203fa09f4764d8d67a))
+* fixed examples folder and readme update ([3b91572](https://github.com/one-acre-fund/terraform-aws-module/commit/3b9157253719fb7049be2bb90037ee09bd1f345a))
+
 ## [1.6.4](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.3...v1.6.4) (2026-03-23)
 
 
