@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.0...v1.6.1) (2026-03-23)
+
+
+### Bug Fixes
+
+* Added DB vars ([bc3150b](https://github.com/one-acre-fund/terraform-aws-module/commit/bc3150b44afac4bb8a11b7432577d173ba7a7327))
+
 # [1.6.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.5.7...v1.6.0) (2026-03-23)
 
 

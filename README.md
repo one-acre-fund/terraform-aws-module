@@ -29,3 +29,4 @@ Version 1.5.5
 Version 1.5.6
 Version 1.5.7
 Version 1.6.0
+Version 1.6.1
