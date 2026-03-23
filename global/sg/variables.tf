@@ -1,48 +1,15 @@
-variable "environment" {
-  description = "Environment name (dev, staging, prod)"
-  type        = string
-}
-
-variable "application" {
-  description = "The name of the owning application or service (e.g., odoo, fineract)."
-  type        = string
-}
-
-variable "cost_centre" {
-  description = "The finance cost centre code or name (e.g., GLB-GR, KE-ASILI)."
-  type        = string
-}
-
-variable "owner" {
-  description = "The team or individual responsible for this resource (e.g., platform-team)."
-  type        = string
-}
-
-variable "managed_by" {
-  description = "Provisioning method (terraform/manual)"
-  type        = string
-  default     = "terraform"
-}
-
-variable "module" {
-  description = "module name for tagging purposes"
-  type        = string
-  default     = "terraform-aws-vpc"
-}
-
 variable "name" {
-  description = "Security group name"
+  description = "Name of the security group"
   type        = string
 }
 
 variable "description" {
-  description = "Security group description"
+  description = "Description of the security group"
   type        = string
-  default     = "Managed by Terraform"
 }
 
 variable "vpc_id" {
-  description = "VPC ID"
+  description = "VPC ID for the security group"
   type        = string
 }
 
@@ -72,8 +39,39 @@ variable "egress_rules" {
   default = []
 }
 
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
+
+variable "application" {
+  description = "Application / project name"
+  type        = string
+}
+
+variable "cost_centre" {
+  description = "Cost centre tag"
+  type        = string
+}
+
+variable "owner" {
+  description = "Owner tag"
+  type        = string
+}
+
+variable "managed_by" {
+  description = "Managed by tag"
+  type        = string
+}
+
 variable "tags" {
-  description = "Tags to apply"
+  description = "Additional tags"
   type        = map(string)
   default     = {}
+}
+
+variable "module" {
+  description = "Module name for tagging purposes"
+  type        = string
+  default     = "terraform-aws-vpc"
 }

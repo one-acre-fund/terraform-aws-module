@@ -1,3 +1,6 @@
+# ---------------------------
+# Security Group
+# ---------------------------
 resource "aws_security_group" "this" {
   name        = var.name
   description = var.description
@@ -8,7 +11,9 @@ resource "aws_security_group" "this" {
   })
 }
 
-# Ingress rules
+# ---------------------------
+# Ingress Rules
+# ---------------------------
 resource "aws_security_group_rule" "ingress" {
   for_each = {
     for idx, rule in var.ingress_rules : idx => rule
@@ -22,15 +27,20 @@ resource "aws_security_group_rule" "ingress" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  # Safe handling of optional cidr_blocks
+  cidr_blocks = coalesce(lookup(each.value, "cidr_blocks", []), [])
+
+  # Safe handling of optional security_groups
   source_security_group_id = (
-    length(lookup(each.value, "security_groups", [])) > 0
-    ? each.value.security_groups[0]
+    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
+    ? lookup(each.value, "security_groups", [])[0]
     : null
   )
 }
 
-# Egress rules
+# ---------------------------
+# Egress Rules
+# ---------------------------
 resource "aws_security_group_rule" "egress" {
   for_each = {
     for idx, rule in var.egress_rules : idx => rule
@@ -44,10 +54,13 @@ resource "aws_security_group_rule" "egress" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  cidr_blocks = lookup(each.value, "cidr_blocks", null)
+  # Safe handling of optional cidr_blocks
+  cidr_blocks = coalesce(lookup(each.value, "cidr_blocks", []), [])
+
+  # Safe handling of optional security_groups
   source_security_group_id = (
-    length(lookup(each.value, "security_groups", [])) > 0
-    ? each.value.security_groups[0]
+    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
+    ? lookup(each.value, "security_groups", [])[0]
     : null
   )
 }
