@@ -108,3 +108,9 @@ variable "manage_master_user_password" {
   default     = true
 
 }
+
+variable "publicly_accessible" {
+  description = ""
+  type        = bool
+  default     = false
+}
