@@ -113,3 +113,9 @@ variable "publicly_accessible" {
   type        = bool
   default     = false
 }
+
+variable "vpc_security_group_ids" {
+  description = "List of VPC security group IDs to assign to the RDS instance"
+  type        = list(string)
+  default     = []
+}

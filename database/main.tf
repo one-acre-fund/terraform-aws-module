@@ -30,6 +30,9 @@ resource "aws_db_instance" "this" {
   manage_master_user_password = var.manage_master_user_password
   publicly_accessible         = var.publicly_accessible
 
+  # <-- Add security groups here
+  vpc_security_group_ids = var.vpc_security_group_ids
+
   tags = merge(local.common_tags, {
     Name = var.db_identifier
   })
