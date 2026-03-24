@@ -173,3 +173,4 @@ No outputs.
 <!-- END_TF_DOCS -->
 Version 1.7.0
 Version 1.8.0
+Version 1.8.1
