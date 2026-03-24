@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.7.0...v1.8.0) (2026-03-24)
+
+
+### Bug Fixes
+
+* fixed typo ([39bb36e](https://github.com/one-acre-fund/terraform-aws-module/commit/39bb36ec5366865699f5d1513335b9aec11d5a9f))
+
+
+### Features
+
+* Added s3 module ([6e0db5a](https://github.com/one-acre-fund/terraform-aws-module/commit/6e0db5a8ee88f8cbf6e17c5e7636ec4da26b9074))
+
 # [1.7.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.6.4...v1.7.0) (2026-03-23)
 
 
