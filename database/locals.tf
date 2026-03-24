@@ -8,5 +8,5 @@ locals {
     Module        = var.module
     map-migrated  = "migFM25HRY5PO"
   })
-
+  
 }
