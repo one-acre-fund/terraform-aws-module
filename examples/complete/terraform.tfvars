@@ -8,10 +8,6 @@ cost_centre = "GLB-GR"
 owner       = "platform-team"
 managed_by  = "terraform"
 
-tags = {
-  Project = "my-app"
-}
-
 ##############################################
 # VPC
 ##############################################
@@ -32,3 +28,29 @@ db_instance_class = "db.r6i.large"
 db_storage        = 100
 db_username       = "rdsadmin"
 db_license_model  = "license-included"
+
+##############################################
+# S3
+##############################################
+s3_buckets = {
+  app-data = {
+    bucket_name        = "my-app-prod-data"
+    force_destroy      = false
+    versioning_enabled = true
+    sse_algorithm      = "AES256"
+  }
+  app-logs = {
+    bucket_name        = "my-app-prod-logs"
+    force_destroy      = false
+    versioning_enabled = false
+    sse_algorithm      = "AES256"
+  }
+}
+
+##############################################
+# EC2
+##############################################
+ec2_instance_name    = "my-app-prod-ec2"
+ec2_ami              = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
+ec2_instance_type    = "t3.small"
+ec2_root_volume_size = 50

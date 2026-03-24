@@ -106,3 +106,30 @@ variable "db_license_model" {
   type        = string
   default     = "license-included"
 }
+
+##############################################
+# S3
+##############################################
+variable "s3_bucket_name" {
+  description = "Name of the S3 bucket to create"
+  type        = string
+}
+
+##############################################
+# EC2
+##############################################
+variable "ec2_instance_name" {
+  description = "Name tag for the EC2 instance"
+  type        = string
+}
+
+variable "ec2_ami" {
+  description = "AMI ID to use for the EC2 instance"
+  type        = string
+}
+
+variable "ec2_instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.micro"
+}

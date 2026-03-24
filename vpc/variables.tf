@@ -24,6 +24,12 @@ variable "managed_by" {
   default     = "terraform"
 }
 
+variable "map_migrated" {
+  description = "AWS map-migarted tag"
+  type        = string
+  default     = "migFM25HRY5PO"
+}
+
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
@@ -100,9 +106,4 @@ variable "tags" {
   default     = {}
 }
 
-variable "module" {
-  description = "module name for tagging purposes"
-  type        = string
-  default     = "terraform-aws-vpc"
-}
 

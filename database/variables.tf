@@ -24,17 +24,18 @@ variable "managed_by" {
   default     = "terraform"
 }
 
+variable "map_migrated" {
+  description = "AWS map-migarted tag"
+  type        = string
+  default     = "migFM25HRY5PO"
+}
+
 variable "tags" {
   description = "Additional tags for all resources"
   type        = map(string)
   default     = {}
 }
 
-variable "module" {
-  description = "module name for tagging purposes"
-  type        = string
-  default     = "terraform-aws-vpc"
-}
 
 
 #Database variables

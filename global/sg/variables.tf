@@ -64,14 +64,15 @@ variable "managed_by" {
   type        = string
 }
 
+variable "map_migrated" {
+  description = "AWS map-migarted tag"
+  type        = string
+  default     = "migFM25HRY5PO"
+}
+
 variable "tags" {
   description = "Additional tags"
   type        = map(string)
   default     = {}
 }
 
-variable "module" {
-  description = "Module name for tagging purposes"
-  type        = string
-  default     = "terraform-aws-vpc"
-}

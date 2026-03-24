@@ -8,10 +8,6 @@ cost_centre = "GLB-GR"
 owner       = "platform-team"
 managed_by  = "terraform"
 
-tags = {
-  Project = "my-app"
-}
-
 ##############################################
 # VPC
 ##############################################
@@ -30,3 +26,15 @@ db_instance_class = "db.t3.medium"
 db_storage        = 20
 db_username       = "rdsadmin"
 db_license_model  = "license-included"
+
+##############################################
+# S3
+##############################################
+s3_bucket_name = "my-app-dev-data"
+
+##############################################
+# EC2
+##############################################
+ec2_instance_name = "my-app-dev-ec2"
+ec2_ami           = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
+ec2_instance_type = "t3.micro"

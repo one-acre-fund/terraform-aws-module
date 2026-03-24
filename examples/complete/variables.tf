@@ -112,3 +112,42 @@ variable "db_license_model" {
   type        = string
   default     = "license-included"
 }
+
+##############################################
+# S3
+##############################################
+variable "s3_buckets" {
+  description = "Map of S3 buckets to create"
+  type = map(object({
+    bucket_name        = string
+    force_destroy      = optional(bool, false)
+    versioning_enabled = optional(bool, true)
+    sse_algorithm      = optional(string, "AES256")
+  }))
+  default = {}
+}
+
+##############################################
+# EC2
+##############################################
+variable "ec2_instance_name" {
+  description = "Name tag for the EC2 instance"
+  type        = string
+}
+
+variable "ec2_ami" {
+  description = "AMI ID to use for the EC2 instance"
+  type        = string
+}
+
+variable "ec2_instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.small"
+}
+
+variable "ec2_root_volume_size" {
+  description = "Root EBS volume size in GB"
+  type        = number
+  default     = 50
+}

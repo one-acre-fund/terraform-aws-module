@@ -7,5 +7,4 @@ locals {
     ManagedBy    = var.managed_by
     map-migrated = var.map_migrated
   })
-
 }
