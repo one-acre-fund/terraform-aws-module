@@ -55,7 +55,6 @@ module "app_sg" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-sg"
   tags        = var.tags
 
   ingress_rules = [
@@ -101,7 +100,6 @@ module "rds_sg" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-sg"
   tags        = var.tags
 
   ingress_rules = [
@@ -143,7 +141,6 @@ module "database" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-database"
   tags        = var.tags
 
   db_identifier        = "${var.application}-${var.environment}-db"
@@ -182,7 +179,6 @@ module "s3" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-s3"
   tags        = var.tags
 }
 
@@ -201,7 +197,6 @@ module "ec2_sg" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-sg"
   tags        = var.tags
 
   ingress_rules = [
@@ -253,7 +248,6 @@ module "ec2_role" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-iam"
   tags        = var.tags
 }
 
@@ -276,7 +270,6 @@ module "ec2" {
   cost_centre = var.cost_centre
   owner       = var.owner
   managed_by  = var.managed_by
-  module      = "terraform-aws-ec2"
   tags        = var.tags
 
   depends_on = [module.vpc]
