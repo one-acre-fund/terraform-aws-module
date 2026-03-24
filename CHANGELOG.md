@@ -1,3 +1,11 @@
+## [1.8.4](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.3...v1.8.4) (2026-03-24)
+
+
+### Bug Fixes
+
+* fixed tagging ([613466c](https://github.com/one-acre-fund/terraform-aws-module/commit/613466c9a4b151c6a13e715ff4380a16807b394a))
+* removed unwanted vars ([4d361b0](https://github.com/one-acre-fund/terraform-aws-module/commit/4d361b0206d5358ea5f02282e9f58aa8cabc5080))
+
 ## [1.8.3](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.2...v1.8.3) (2026-03-24)
 
 
