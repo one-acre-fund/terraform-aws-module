@@ -8,3 +8,4 @@ locals {
     Module      = var.module
   })
 }
+
