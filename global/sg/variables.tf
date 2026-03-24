@@ -45,7 +45,7 @@ variable "environment" {
 }
 
 variable "application" {
-  description = "Application / project name"
+  description = "Application name"
   type        = string
 }
 
