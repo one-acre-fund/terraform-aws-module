@@ -174,3 +174,4 @@ No outputs.
 Version 1.7.0
 Version 1.8.0
 Version 1.8.1
+Version 1.8.2

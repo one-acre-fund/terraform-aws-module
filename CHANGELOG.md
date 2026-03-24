@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.1...v1.8.2) (2026-03-24)
+
+
+### Bug Fixes
+
+* added map-migrated tag ([632ef1f](https://github.com/one-acre-fund/terraform-aws-module/commit/632ef1f1aa170c684b2b181625a6db58bf81eff9))
+
 ## [1.8.1](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.0...v1.8.1) (2026-03-24)
 
 
