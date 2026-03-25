@@ -11,7 +11,7 @@ locals {
   # application_names overrides per-instance; falls back to var.application for all.
   instance_names = [
     for i in range(var.instance_count) :
-      "ec2-${length(var.application_names) > 0 ? var.application_names[i] : var.application}-${var.environment}-${format("%02d", i + 1)}"
+    "ec2-${length(var.application_names) > 0 ? var.application_names[i] : var.application}-${var.environment}-${format("%02d", i + 1)}"
   ]
 
   common_tags = merge(var.tags, {
