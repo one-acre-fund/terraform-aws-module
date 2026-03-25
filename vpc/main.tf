@@ -60,7 +60,7 @@ resource "aws_subnet" "private" {
 
 ##############################################
 # Elastic IPs for NAT Gateways
-##############################################
+#############################################
 resource "aws_eip" "nat" {
   count  = local.nat_gateway_count
   domain = "vpc"
