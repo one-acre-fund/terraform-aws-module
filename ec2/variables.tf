@@ -4,7 +4,7 @@ variable "environment" {
 }
 
 variable "application" {
-  description = "The name of the owning application or service (e.g., odoo, fineract)."
+  description = "Default application name used in naming and tags (e.g., odoo, fineract). Overridden per-instance by application_names."
   type        = string
 }
 
@@ -25,7 +25,7 @@ variable "managed_by" {
 }
 
 variable "map_migrated" {
-  description = "AWS map-migarted tag"
+  description = "AWS map-migrated tag"
   type        = string
   default     = "migFM25HRY5PO"
 }
@@ -41,13 +41,43 @@ variable "tags" {
 # EC2 Variables
 # ---------------------------
 
-variable "instance_name" {
-  description = "Name tag for the EC2 instance"
-  type        = string
+variable "instance_count" {
+  description = "Number of EC2 instances to create."
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.instance_count >= 1
+    error_message = "instance_count must be at least 1."
+  }
+}
+
+variable "application_names" {
+  description = "Per-instance application names used in the Name tag (ec2-[application]-[env]-[suffix]). Must be empty (use application for all) or have exactly instance_count elements."
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_public" {
+  description = "If true, instances are launched in public subnets with a public IP assigned. If false, instances are launched in private subnets (tagged purpose:app) with no public IP."
+  type        = bool
+  default     = false
+}
+
+variable "public_subnets" {
+  description = "List of public subnet IDs (one per AZ, e.g. eu-west-1a and eu-west-1b). Required when enable_public = true."
+  type        = list(string)
+  default     = []
+}
+
+variable "private_subnets" {
+  description = "List of private subnet IDs tagged with purpose:app (one per AZ). Required when enable_public = false."
+  type        = list(string)
+  default     = []
 }
 
 variable "ami" {
-  description = "AMI ID to use for the EC2 instance"
+  description = "AMI ID to use for the EC2 instances"
   type        = string
 }
 
@@ -57,13 +87,8 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "subnet_id" {
-  description = "Subnet ID in which to launch the EC2 instance"
-  type        = string
-}
-
 variable "vpc_security_group_ids" {
-  description = "List of VPC security group IDs to associate with the instance"
+  description = "List of VPC security group IDs to associate with the instances"
   type        = list(string)
   default     = []
 }
@@ -75,27 +100,15 @@ variable "key_name" {
 }
 
 variable "iam_instance_profile" {
-  description = "Name of the IAM instance profile to attach to the instance"
+  description = "Name of the IAM instance profile to attach to the instances"
   type        = string
   default     = null
-}
-
-variable "associate_public_ip_address" {
-  description = "Whether to associate a public IP address with the instance"
-  type        = bool
-  default     = false
 }
 
 variable "root_volume_size" {
   description = "Size of the root EBS volume in GB"
   type        = number
   default     = 30
-}
-
-variable "root_volume_name" {
-  description = "Name tag for the root EBS volume"
-  type        = string
-  default     = null
 }
 
 variable "root_volume_type" {
@@ -117,7 +130,7 @@ variable "user_data" {
 }
 
 variable "monitoring" {
-  description = "Whether to enable detailed monitoring for the instance"
+  description = "Whether to enable detailed monitoring for the instances"
   type        = bool
   default     = false
 }

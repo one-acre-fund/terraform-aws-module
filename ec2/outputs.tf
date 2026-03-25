@@ -1,24 +1,37 @@
-output "instance_id" {
-  description = "The ID of the EC2 instance"
-  value       = aws_instance.this.id
+output "instance_ids" {
+  description = "List of EC2 instance IDs"
+  value       = aws_instance.this[*].id
 }
 
-output "instance_arn" {
-  description = "The ARN of the EC2 instance"
-  value       = aws_instance.this.arn
+output "instance_arns" {
+  description = "List of EC2 instance ARNs"
+  value       = aws_instance.this[*].arn
 }
 
-output "private_ip" {
-  description = "The private IP address of the EC2 instance"
-  value       = aws_instance.this.private_ip
+output "instance_names" {
+  description = "List of EC2 instance names (ec2-[application]-[env]-[suffix])"
+  value       = local.instance_names
 }
 
-output "public_ip" {
-  description = "The public IP address of the EC2 instance"
-  value       = aws_instance.this.public_ip
+output "private_ips" {
+  description = "List of private IP addresses of the EC2 instances"
+  value       = aws_instance.this[*].private_ip
 }
 
-output "private_dns" {
-  description = "The private DNS name of the EC2 instance"
-  value       = aws_instance.this.private_dns
+output "public_ips" {
+  description = "List of public IP addresses (null for private instances)"
+  value       = aws_instance.this[*].public_ip
+}
+
+output "private_dns_names" {
+  description = "List of private DNS names of the EC2 instances"
+  value       = aws_instance.this[*].private_dns
+}
+
+output "subnet_assignments" {
+  description = "Map of instance name to subnet ID, showing the alternating subnet distribution"
+  value = {
+    for i in range(var.instance_count) :
+    local.instance_names[i] => local.instance_subnets[i]
+  }
 }
