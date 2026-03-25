@@ -132,7 +132,19 @@ resource "aws_route" "private_nat" {
 
   route_table_id         = aws_route_table.private[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = var.single_nat_gateway ? aws_nat_gateway.this[0].id : aws_nat_gateway.this[count.index % local.nat_gateway_count].id
+  
+  # Route db subnets to IGW, others to NAT
+  nat_gateway_id = (
+    length(var.private_subnet_purpose) > 0 && var.private_subnet_purpose[count.index] == "db"
+      ? null
+      : (var.single_nat_gateway ? aws_nat_gateway.this[0].id : aws_nat_gateway.this[count.index % local.nat_gateway_count].id)
+  )
+  
+  gateway_id = (
+    length(var.private_subnet_purpose) > 0 && var.private_subnet_purpose[count.index] == "db" && var.create_igw
+      ? aws_internet_gateway.this[0].id
+      : null
+  )
 }
 
 resource "aws_route_table_association" "private" {
@@ -202,4 +214,6 @@ resource "aws_flow_log" "this" {
     Name = "flow-logs-${var.environment}"
   })
 }
+
+
 
