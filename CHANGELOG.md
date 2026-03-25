@@ -1,3 +1,10 @@
+## [1.8.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.6...v1.8.7) (2026-03-25)
+
+
+### Bug Fixes
+
+* ebs naming ([f5d2b7f](https://github.com/one-acre-fund/terraform-aws-module/commit/f5d2b7ffdbf4cb447435a9118e8867882842b6e7))
+
 ## [1.8.6](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.5...v1.8.6) (2026-03-25)
 
 
