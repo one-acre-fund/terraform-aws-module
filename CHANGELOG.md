@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.7...v1.8.8) (2026-03-25)
+
+
+### Bug Fixes
+
+* modified vpc main.tf ([b91910b](https://github.com/one-acre-fund/terraform-aws-module/commit/b91910b7f204745d5b593c678ed5047dfac4fd7b))
+
 ## [1.8.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.6...v1.8.7) (2026-03-25)
 
 
