@@ -63,12 +63,13 @@ ec2_instance_type     = "t3.small"
 ec2_root_volume_size  = 50
 ec2_monitoring        = true
 
-# Two additional volumes attached to every instance:
-#   vol-my-app-prod-01-data, vol-my-app-prod-02-data, …
-#   vol-my-app-prod-01-logs, vol-my-app-prod-02-logs, …
+# Two additional volumes per instance (sequential naming continues from root):
+#   ec2-my-app-prod-01 → vol-my-app-prod-01 (root), vol-my-app-prod-02, vol-my-app-prod-03
+#   ec2-my-app-prod-02 → vol-my-app-prod-04 (root), vol-my-app-prod-05, vol-my-app-prod-06
+#   ec2-my-app-prod-03 → vol-my-app-prod-07 (root), vol-my-app-prod-08, vol-my-app-prod-09
+#   ec2-my-app-prod-04 → vol-my-app-prod-10 (root), vol-my-app-prod-11, vol-my-app-prod-12
 ec2_additional_volumes = [
   {
-    name_suffix = "data"
     device_name = "/dev/sdf"
     size        = 200
     type        = "gp3"
@@ -76,7 +77,6 @@ ec2_additional_volumes = [
     throughput  = 150
   },
   {
-    name_suffix = "logs"
     device_name = "/dev/sdg"
     size        = 50
     type        = "gp3"

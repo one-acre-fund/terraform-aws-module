@@ -45,10 +45,10 @@ ec2_ami               = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
 ec2_instance_type     = "t3.micro"
 
 # One 100 GB data volume attached to every instance:
-#   vol-my-app-dev-01-data, vol-my-app-dev-02-data
+#   ec2-my-app-dev-01 → vol-my-app-dev-01 (root), vol-my-app-dev-02 (data)
+#   ec2-my-app-dev-02 → vol-my-app-dev-03 (root), vol-my-app-dev-04 (data)
 ec2_additional_volumes = [
   {
-    name_suffix = "data"
     device_name = "/dev/sdf"
     size        = 100
     type        = "gp3"

@@ -172,9 +172,8 @@ variable "ec2_monitoring" {
 }
 
 variable "ec2_additional_volumes" {
-  description = "Optional additional EBS volumes attached to every EC2 instance. Named vol-[app]-[env]-[suffix]-[name_suffix]."
+  description = "Optional additional EBS volumes attached to every EC2 instance. Named vol-[app]-[env]-[N] with sequential numbering continuing from the root volume."
   type = list(object({
-    name_suffix = string
     device_name = string
     size        = number
     type        = optional(string, "gp3")

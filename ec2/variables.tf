@@ -138,8 +138,9 @@ variable "monitoring" {
 variable "additional_volumes" {
   description = <<-EOT
     Optional list of additional EBS volumes to create and attach to every instance.
-    Each volume is created once per instance and named vol-[app]-[env]-[suffix]-[name_suffix].
-      name_suffix - Short label appended to the volume name and used as part of the for_each key (e.g. "data", "logs").
+    Volumes are named sequentially continuing from the root: vol-[app]-[env]-[N].
+    Root volume is always N=01 for instance 0. Additional volumes continue: 02, 03, …
+    For multiple instances each block shifts: instance 1 root = 03 (if 2 vols each), etc.
       device_name - OS device path (e.g. /dev/sdf). Must be unique per instance.
       size        - Volume size in GB.
       type        - EBS volume type: gp3, gp2, io1, io2, sc1, st1 (default: gp3).
@@ -148,7 +149,6 @@ variable "additional_volumes" {
       throughput  - Throughput in MiB/s. Only applicable to gp3 (default: null).
   EOT
   type = list(object({
-    name_suffix = string
     device_name = string
     size        = number
     type        = optional(string, "gp3")

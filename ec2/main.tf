@@ -58,7 +58,7 @@ resource "aws_ebs_volume" "additional" {
   throughput        = each.value.vol.throughput
 
   tags = merge(local.common_tags, {
-    Name = "vol-${each.value.app_name}-${var.environment}-${each.value.suffix}-${each.value.vol.name_suffix}"
+    Name = "vol-${each.value.app_name}-${var.environment}-${format("%02d", each.value.vol_number)}"
   })
 }
 
