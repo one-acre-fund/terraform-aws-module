@@ -13,6 +13,15 @@ provider "aws" {
   region = var.region
 }
 
+locals {
+  # Private subnets tagged purpose:app — passed to the EC2 module
+  ec2_app_private_subnets = [
+    for i, purpose in var.private_subnet_purpose :
+    module.vpc.private_subnet_ids[i]
+    if purpose == "app"
+  ]
+}
+
 ##############################################
 # VPC
 ##############################################
@@ -201,13 +210,26 @@ module "ec2_role" {
 module "ec2" {
   source = "../../ec2"
 
-  instance_name          = var.ec2_instance_name
+  # Count & naming
+  instance_count    = var.ec2_instance_count
+  application_names = var.ec2_application_names
+
+  # Placement: false = private app subnets, true = public subnets
+  enable_public   = var.ec2_enable_public
+  private_subnets = local.ec2_app_private_subnets
+  public_subnets  = module.vpc.public_subnet_ids
+
+  # Instance
   ami                    = var.ec2_ami
   instance_type          = var.ec2_instance_type
-  subnet_id              = module.vpc.private_subnet_ids[0]
   vpc_security_group_ids = [module.ec2_sg.security_group_id]
   iam_instance_profile   = module.ec2_role.instance_profile_name
 
+  # Storage
+  root_volume_encrypted = true
+  additional_volumes    = var.ec2_additional_volumes
+
+  # Common
   environment = var.environment
   application = var.application
   cost_centre = var.cost_centre
@@ -282,21 +304,36 @@ output "s3_bucket_arn" {
 }
 
 output "ec2_security_group_id" {
-  description = "Security group ID for the EC2 instance"
+  description = "Security group ID for the EC2 instances"
   value       = module.ec2_sg.security_group_id
 }
 
 output "ec2_role_arn" {
-  description = "IAM role ARN for the EC2 instance"
+  description = "IAM role ARN for the EC2 instances"
   value       = module.ec2_role.role_arn
 }
 
-output "ec2_instance_id" {
-  description = "EC2 instance ID"
-  value       = module.ec2.instance_id
+output "ec2_instance_ids" {
+  description = "List of EC2 instance IDs"
+  value       = module.ec2.instance_ids
 }
 
-output "ec2_private_ip" {
-  description = "EC2 instance private IP"
-  value       = module.ec2.private_ip
+output "ec2_instance_names" {
+  description = "List of EC2 instance names (ec2-[app]-[env]-NN)"
+  value       = module.ec2.instance_names
+}
+
+output "ec2_private_ips" {
+  description = "List of private IP addresses of the EC2 instances"
+  value       = module.ec2.private_ips
+}
+
+output "ec2_subnet_assignments" {
+  description = "Map of instance name to subnet showing alternating distribution"
+  value       = module.ec2.subnet_assignments
+}
+
+output "ec2_additional_volume_ids" {
+  description = "Map of volume key (e.g. '01-data') to EBS volume ID for additional volumes"
+  value       = module.ec2.additional_volume_ids
 }

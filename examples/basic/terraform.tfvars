@@ -35,6 +35,23 @@ s3_bucket_name = "my-app-dev-data"
 ##############################################
 # EC2
 ##############################################
-ec2_instance_name = "my-app-dev-ec2"
-ec2_ami           = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
-ec2_instance_type = "t3.micro"
+# Creates 2 private instances spread across app subnets:
+#   ec2-my-app-dev-01 → subnet eu-west-1a
+#   ec2-my-app-dev-02 → subnet eu-west-1b
+ec2_instance_count    = 2
+ec2_application_names = []                      # leave empty to use var.application for all
+ec2_enable_public     = false                   # place in private subnets tagged purpose:app
+ec2_ami               = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
+ec2_instance_type     = "t3.micro"
+
+# One 100 GB data volume attached to every instance:
+#   vol-my-app-dev-01-data, vol-my-app-dev-02-data
+ec2_additional_volumes = [
+  {
+    name_suffix = "data"
+    device_name = "/dev/sdf"
+    size        = 100
+    type        = "gp3"
+    encrypted   = true
+  }
+]

@@ -130,13 +130,26 @@ variable "s3_buckets" {
 ##############################################
 # EC2
 ##############################################
-variable "ec2_instance_name" {
-  description = "Name tag for the EC2 instance"
-  type        = string
+variable "ec2_instance_count" {
+  description = "Number of EC2 instances to create"
+  type        = number
+  default     = 4
+}
+
+variable "ec2_application_names" {
+  description = "Per-instance name overrides (ec2-[app]-[env]-NN). Empty = use application for all."
+  type        = list(string)
+  default     = []
+}
+
+variable "ec2_enable_public" {
+  description = "If true, launch instances in public subnets with a public IP. If false, use private app subnets."
+  type        = bool
+  default     = false
 }
 
 variable "ec2_ami" {
-  description = "AMI ID to use for the EC2 instance"
+  description = "AMI ID to use for the EC2 instances"
   type        = string
 }
 
@@ -150,4 +163,24 @@ variable "ec2_root_volume_size" {
   description = "Root EBS volume size in GB"
   type        = number
   default     = 50
+}
+
+variable "ec2_monitoring" {
+  description = "Enable detailed CloudWatch monitoring on EC2 instances"
+  type        = bool
+  default     = true
+}
+
+variable "ec2_additional_volumes" {
+  description = "Optional additional EBS volumes attached to every EC2 instance. Named vol-[app]-[env]-[suffix]-[name_suffix]."
+  type = list(object({
+    name_suffix = string
+    device_name = string
+    size        = number
+    type        = optional(string, "gp3")
+    encrypted   = optional(bool, true)
+    iops        = optional(number, null)
+    throughput  = optional(number, null)
+  }))
+  default = []
 }

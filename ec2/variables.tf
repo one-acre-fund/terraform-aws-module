@@ -134,3 +134,27 @@ variable "monitoring" {
   type        = bool
   default     = false
 }
+
+variable "additional_volumes" {
+  description = <<-EOT
+    Optional list of additional EBS volumes to create and attach to every instance.
+    Each volume is created once per instance and named vol-[app]-[env]-[suffix]-[name_suffix].
+      name_suffix - Short label appended to the volume name and used as part of the for_each key (e.g. "data", "logs").
+      device_name - OS device path (e.g. /dev/sdf). Must be unique per instance.
+      size        - Volume size in GB.
+      type        - EBS volume type: gp3, gp2, io1, io2, sc1, st1 (default: gp3).
+      encrypted   - Whether the volume is encrypted (default: true).
+      iops        - Provisioned IOPS. Required for io1/io2; optional for gp3 (default: null).
+      throughput  - Throughput in MiB/s. Only applicable to gp3 (default: null).
+  EOT
+  type = list(object({
+    name_suffix = string
+    device_name = string
+    size        = number
+    type        = optional(string, "gp3")
+    encrypted   = optional(bool, true)
+    iops        = optional(number, null)
+    throughput  = optional(number, null)
+  }))
+  default = []
+}

@@ -50,7 +50,36 @@ s3_buckets = {
 ##############################################
 # EC2
 ##############################################
-ec2_instance_name    = "my-app-prod-ec2"
-ec2_ami              = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
-ec2_instance_type    = "t3.small"
-ec2_root_volume_size = 50
+# Creates 4 private instances spread alternately across 2 app subnets (AZs):
+#   ec2-my-app-prod-01 → eu-west-1a
+#   ec2-my-app-prod-02 → eu-west-1b
+#   ec2-my-app-prod-03 → eu-west-1a
+#   ec2-my-app-prod-04 → eu-west-1b
+ec2_instance_count    = 4
+ec2_application_names = []                      # leave empty to use var.application for all
+ec2_enable_public     = false                   # place in private subnets tagged purpose:app
+ec2_ami               = "ami-0d64bb532e0502c46" # Amazon Linux 2023 eu-west-1
+ec2_instance_type     = "t3.small"
+ec2_root_volume_size  = 50
+ec2_monitoring        = true
+
+# Two additional volumes attached to every instance:
+#   vol-my-app-prod-01-data, vol-my-app-prod-02-data, …
+#   vol-my-app-prod-01-logs, vol-my-app-prod-02-logs, …
+ec2_additional_volumes = [
+  {
+    name_suffix = "data"
+    device_name = "/dev/sdf"
+    size        = 200
+    type        = "gp3"
+    encrypted   = true
+    throughput  = 150
+  },
+  {
+    name_suffix = "logs"
+    device_name = "/dev/sdg"
+    size        = 50
+    type        = "gp3"
+    encrypted   = true
+  }
+]

@@ -35,3 +35,8 @@ output "subnet_assignments" {
     local.instance_names[i] => local.instance_subnets[i]
   }
 }
+
+output "additional_volume_ids" {
+  description = "Map of volume key (e.g. '01-data') to EBS volume ID for all additional volumes"
+  value       = { for k, v in aws_ebs_volume.additional : k => v.id }
+}
