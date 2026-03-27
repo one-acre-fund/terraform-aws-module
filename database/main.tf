@@ -37,5 +37,5 @@ resource "aws_db_instance" "this" {
     Name = var.db_identifier
   })
 
- # depends_on = [aws_db_subnet_group.this]
+  # depends_on = [aws_db_subnet_group.this]
 }
