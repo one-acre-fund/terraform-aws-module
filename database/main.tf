@@ -9,9 +9,6 @@ resource "aws_db_subnet_group" "this" {
     Name = var.db_subnet_group_name
   })
 
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 # --------------------------
