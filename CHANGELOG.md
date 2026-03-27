@@ -1,3 +1,10 @@
+## [1.8.10](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.9...v1.8.10) (2026-03-27)
+
+
+### Bug Fixes
+
+* modified database main.tf ([de55f5f](https://github.com/one-acre-fund/terraform-aws-module/commit/de55f5ff13e67a0188e1232e7834428ab12a8d0a))
+
 ## [1.8.9](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.8...v1.8.9) (2026-03-27)
 
 
