@@ -192,3 +192,4 @@ Version 1.8.4
 Version 1.8.5
 Version 1.8.6
 Version 1.8.7
+Version 1.8.8
