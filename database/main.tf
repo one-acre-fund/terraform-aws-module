@@ -14,7 +14,7 @@ resource "aws_db_subnet_group" "this" {
   }
 }
 
-# ---------------------------
+# --------------------------
 # RDS Instance
 # ---------------------------
 resource "aws_db_instance" "this" {
