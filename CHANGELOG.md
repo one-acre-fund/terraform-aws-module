@@ -1,3 +1,10 @@
+## [1.8.12](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.11...v1.8.12) (2026-03-30)
+
+
+### Bug Fixes
+
+* added k8s tags ([412f8d1](https://github.com/one-acre-fund/terraform-aws-module/commit/412f8d16d954572e9bf1df958c1a1fe829dfbba7))
+
 ## [1.8.11](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.10...v1.8.11) (2026-03-30)
 
 

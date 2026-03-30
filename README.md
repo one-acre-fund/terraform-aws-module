@@ -196,3 +196,4 @@ Version 1.8.8
 Version 1.8.9
 Version 1.8.10
 Version 1.8.11
+Version 1.8.12
