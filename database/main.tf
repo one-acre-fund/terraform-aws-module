@@ -9,12 +9,9 @@ resource "aws_db_subnet_group" "this" {
     Name = var.db_subnet_group_name
   })
 
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
-# ---------------------------
+# --------------------------
 # RDS Instance
 # ---------------------------
 resource "aws_db_instance" "this" {
@@ -37,5 +34,5 @@ resource "aws_db_instance" "this" {
     Name = var.db_identifier
   })
 
-  depends_on = [aws_db_subnet_group.this]
+  # depends_on = [aws_db_subnet_group.this]
 }
