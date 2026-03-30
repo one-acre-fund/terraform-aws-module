@@ -36,9 +36,9 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = merge(local.common_tags, {
-    Name                       = "snet-pub-${var.environment}-${var.azs[count.index % length(var.azs)]}-${count.index + 1}"
-    Tier                       = "public"
-    kubernetes.io / role / elb = "1"
+    Name                     = "snet-pub-${var.environment}-${var.azs[count.index % length(var.azs)]}-${count.index + 1}"
+    Tier                     = "public"
+    "kubernetes.io/role/elb" = "1"
   })
 }
 
