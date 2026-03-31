@@ -1,3 +1,10 @@
+## [1.8.15](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.14...v1.8.15) (2026-03-31)
+
+
+### Bug Fixes
+
+* fixed validation failure ([a7059e7](https://github.com/one-acre-fund/terraform-aws-module/commit/a7059e7005d7d34d8a85b3993ca07879ff904b41))
+
 ## [1.8.14](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.13...v1.8.14) (2026-03-31)
 
 
