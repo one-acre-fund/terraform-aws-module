@@ -12,6 +12,11 @@ variable "environment" {
   type        = string
 }
 
+variable "db_name" {
+  description = "Name of database"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the owning application or service"
   type        = string

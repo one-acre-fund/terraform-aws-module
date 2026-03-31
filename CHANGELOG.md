@@ -1,3 +1,45 @@
+## [1.8.17](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.16...v1.8.17) (2026-03-31)
+
+
+### Bug Fixes
+
+* fixed fmt issues ([b773ffd](https://github.com/one-acre-fund/terraform-aws-module/commit/b773ffdddbd871b2560e44615829f9be13cea604))
+
+## [1.8.16](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.15...v1.8.16) (2026-03-31)
+
+
+### Bug Fixes
+
+* fixed database examples ([51904c1](https://github.com/one-acre-fund/terraform-aws-module/commit/51904c1b69bac29fa76ba848ad1d315a27c3c445))
+
+## [1.8.15](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.14...v1.8.15) (2026-03-31)
+
+
+### Bug Fixes
+
+* fixed validation failure ([a7059e7](https://github.com/one-acre-fund/terraform-aws-module/commit/a7059e7005d7d34d8a85b3993ca07879ff904b41))
+
+## [1.8.14](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.13...v1.8.14) (2026-03-31)
+
+
+### Bug Fixes
+
+* fixed validation failure ([804c913](https://github.com/one-acre-fund/terraform-aws-module/commit/804c91331db0fc043d64c991a90296040e5b1249))
+
+## [1.8.13](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.12...v1.8.13) (2026-03-31)
+
+
+### Bug Fixes
+
+* added postgres code ([295e36d](https://github.com/one-acre-fund/terraform-aws-module/commit/295e36de1077166e14a3b66927da7674b34b23c4))
+
+## [1.8.12](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.11...v1.8.12) (2026-03-30)
+
+
+### Bug Fixes
+
+* added k8s tags ([412f8d1](https://github.com/one-acre-fund/terraform-aws-module/commit/412f8d16d954572e9bf1df958c1a1fe829dfbba7))
+
 ## [1.8.11](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.10...v1.8.11) (2026-03-30)
 
 

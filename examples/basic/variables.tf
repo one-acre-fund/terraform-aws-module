@@ -77,6 +77,11 @@ variable "db_engine" {
   default     = "sqlserver-ee"
 }
 
+variable "db_name" {
+  description = ""
+  type        = string
+
+}
 variable "db_engine_version" {
   description = "RDS engine version"
   type        = string
