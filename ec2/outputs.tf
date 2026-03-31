@@ -40,3 +40,8 @@ output "additional_volume_ids" {
   description = "Map of volume key (e.g. '01-data') to EBS volume ID for all additional volumes"
   value       = { for k, v in aws_ebs_volume.additional : k => v.id }
 }
+
+output "elastic_ips" {
+  description = "List of Elastic IP addresses allocated to the instances (empty if enable_eip = false)"
+  value       = aws_eip.this[*].public_ip
+}

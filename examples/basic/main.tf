@@ -216,6 +216,7 @@ module "ec2" {
 
   # Placement: false = private app subnets, true = public subnets
   enable_public   = var.ec2_enable_public
+  enable_eip      = var.ec2_enable_eip
   private_subnets = local.ec2_app_private_subnets
   public_subnets  = module.vpc.public_subnet_ids
 
@@ -276,6 +277,11 @@ output "nat_gateway_ids" {
 output "nat_gateway_public_ips" {
   description = "NAT Gateway public IPs"
   value       = module.vpc.nat_gateway_public_ips
+}
+
+output "ec2_elastic_ips" {
+  description = "Elastic IPs allocated to EC2 instances (empty if enable_eip = false)"
+  value       = module.ec2.elastic_ips
 }
 
 output "rds_security_group_id" {

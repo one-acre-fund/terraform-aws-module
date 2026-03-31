@@ -272,6 +272,7 @@ module "ec2" {
 
   # Placement: false = private app subnets alternating across AZs
   enable_public   = var.ec2_enable_public
+  enable_eip      = var.ec2_enable_eip
   private_subnets = local.ec2_app_private_subnets
   public_subnets  = module.vpc.public_subnet_ids
 
@@ -419,4 +420,9 @@ output "ec2_subnet_assignments" {
 output "ec2_additional_volume_ids" {
   description = "Map of volume key (e.g. '01-data') to EBS volume ID for additional volumes"
   value       = module.ec2.additional_volume_ids
+}
+
+output "ec2_elastic_ips" {
+  description = "Elastic IPs allocated to EC2 instances (empty if enable_eip = false)"
+  value       = module.ec2.elastic_ips
 }
