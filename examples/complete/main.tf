@@ -161,7 +161,7 @@ module "database" {
   instance_class       = var.db_instance_class
   storage              = var.db_storage
   username             = var.db_username
-  license_model  = var.db_license_model
+  license_model        = var.db_license_model
 
   vpc_security_group_ids      = [module.rds_sg.security_group_id]
   manage_master_user_password = true

@@ -79,8 +79,8 @@ variable "db_engine" {
 
 variable "db_name" {
   description = ""
-  type = string
-  
+  type        = string
+
 }
 variable "db_engine_version" {
   description = "RDS engine version"

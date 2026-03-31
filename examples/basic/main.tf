@@ -90,13 +90,13 @@ module "rds_sg" {
 module "database" {
   source = "../../database"
 
-  environment = var.environment
-  application = var.application
-  cost_centre = var.cost_centre
-  owner       = var.owner
-  managed_by  = var.managed_by
-  tags        = var.tags
-  db_name     = contains(["postgres", "sqlserver-ee"], var.db_engine) ? var.db_name : null
+  environment          = var.environment
+  application          = var.application
+  cost_centre          = var.cost_centre
+  owner                = var.owner
+  managed_by           = var.managed_by
+  tags                 = var.tags
+  db_name              = contains(["postgres", "sqlserver-ee"], var.db_engine) ? var.db_name : null
   db_identifier        = "${var.application}-${var.environment}-db"
   db_subnet_group_name = "${var.application}-${var.environment}-subnet-grp"
   subnet_ids           = module.vpc.private_subnet_ids
