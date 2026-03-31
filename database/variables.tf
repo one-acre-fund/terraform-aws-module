@@ -40,15 +40,44 @@ variable "tags" {
 
 #Database variables
 
+variable "db_name" {
+  description = ""
+  type        = ""
+}
+
+
 variable "engine" {
   description = ""
   type        = string
   default     = "sqlserver-ee"
+  validation {
+    condition     = contains(["sqlserver-ee", "postgres"], var.engine)
+    error_message = "Engine must be one of: sqlserver-ee, postgres."
+  }
 }
-variable "engine_version" {
-  description = ""
+variable "engine" {
+  description = "The type of database engine (sqlserver-ee or postgres)"
   type        = string
-  default     = "15.00.4312.2.v1"
+  default     = "sqlserver-ee" # Default to SQL Server Enterprise Edition
+  validation {
+    condition     = contains(["sqlserver-ee", "postgres"], var.engine)
+    error_message = "Engine must be one of: sqlserver-ee, postgres."
+  }
+}
+
+
+variable "engine_version" {
+
+}
+# Map engine to versions
+locals {
+  engine_versions_map = {
+    sqlserver-ee = "15.00.4312.2.v1" # SQL Server version for sqlserver-ee
+    postgres     = "16.10"           # PostgreSQL version
+  }
+
+  # Select the appropriate version based on the engine
+  engine_version = lookup(local.engine_versions_map, var.engine)
 }
 
 variable "username" {
