@@ -1,3 +1,10 @@
+## [1.8.13](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.12...v1.8.13) (2026-03-31)
+
+
+### Bug Fixes
+
+* added postgres code ([295e36d](https://github.com/one-acre-fund/terraform-aws-module/commit/295e36de1077166e14a3b66927da7674b34b23c4))
+
 ## [1.8.12](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.11...v1.8.12) (2026-03-30)
 
 
