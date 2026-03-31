@@ -58,19 +58,9 @@ variable "engine" {
 
 
 variable "engine_version" {
-
+  description = "Engine version for the RDS instance (e.g. 15.00.4455.2.v1 for sqlserver-ee, 16.10 for postgres)"
+  type        = string
 }
-# Map engine to versions
-locals {
-  engine_versions_map = {
-    sqlserver-ee = "15.00.4312.2.v1" # SQL Server version for sqlserver-ee
-    postgres     = "16.10"           # PostgreSQL version
-  }
-
-  # Select the appropriate version based on the engine
-  engine_version = lookup(local.engine_versions_map, var.engine)
-}
-
 variable "username" {
   description = ""
   type        = string
