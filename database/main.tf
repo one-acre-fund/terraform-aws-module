@@ -28,7 +28,7 @@ resource "aws_db_instance" "this" {
   skip_final_snapshot         = var.skip_final_snapshot
   manage_master_user_password = var.manage_master_user_password
   publicly_accessible         = var.publicly_accessible
-  db_subnet_group_name        = var.db_subnet_group_name 
+  db_subnet_group_name        = var.db_subnet_group_name
   db_name                     = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
   # <-- Add security groups here
   vpc_security_group_ids = var.vpc_security_group_ids
