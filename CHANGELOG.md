@@ -1,3 +1,10 @@
+## [1.8.19](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.18...v1.8.19) (2026-03-31)
+
+
+### Bug Fixes
+
+* added eip to instances ([8c246c9](https://github.com/one-acre-fund/terraform-aws-module/commit/8c246c91964023a51027ac3a8af2747460bdb0fb))
+
 ## [1.8.18](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.17...v1.8.18) (2026-03-31)
 
 
