@@ -1,3 +1,10 @@
+## [1.8.26](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.25...v1.8.26) (2026-04-01)
+
+
+### Bug Fixes
+
+* Modified examples ([01dd7e5](https://github.com/one-acre-fund/terraform-aws-module/commit/01dd7e5ec5c2565ba44b8758c8e3c4ba35800071))
+
 ## [1.8.25](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.24...v1.8.25) (2026-04-01)
 
 
