@@ -135,6 +135,12 @@ variable "monitoring" {
   default     = false
 }
 
+variable "enable_eip" {
+  description = "If true, an Elastic IP is allocated and associated with each instance. Requires enable_public = true."
+  type        = bool
+  default     = false
+}
+
 variable "additional_volumes" {
   description = <<-EOT
     Optional list of additional EBS volumes to create and attach to every instance.

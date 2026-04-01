@@ -153,6 +153,12 @@ variable "ec2_enable_public" {
   default     = false
 }
 
+variable "ec2_enable_eip" {
+  description = "If true, allocate and associate an Elastic IP per instance. Requires ec2_enable_public = true."
+  type        = bool
+  default     = false
+}
+
 variable "ec2_ami" {
   description = "AMI ID to use for the EC2 instances"
   type        = string

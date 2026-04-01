@@ -40,6 +40,11 @@ resource "aws_instance" "this" {
       error_message = "At least 2 subnets must be provided in ${var.enable_public ? "public_subnets" : "private_subnets"}."
     }
 
+    precondition {
+      condition     = !var.enable_eip || var.enable_public
+      error_message = "enable_eip requires enable_public = true so the instance is placed in a public subnet with an IGW route."
+    }
+
     ignore_changes = [ami]
   }
 }
@@ -68,4 +73,22 @@ resource "aws_volume_attachment" "additional" {
   device_name = each.value.vol.device_name
   volume_id   = aws_ebs_volume.additional[each.key].id
   instance_id = aws_instance.this[each.value.instance_index].id
+}
+
+# ---------------------------
+# Elastic IPs
+# ---------------------------
+resource "aws_eip" "this" {
+  count  = var.enable_eip ? var.instance_count : 0
+  domain = "vpc"
+
+  tags = merge(local.common_tags, {
+    Name = "eip-${var.environment}-${var.application}-${format("%02d", count.index + 1)}"
+  })
+}
+
+resource "aws_eip_association" "this" {
+  count         = var.enable_eip ? var.instance_count : 0
+  instance_id   = aws_instance.this[count.index].id
+  allocation_id = aws_eip.this[count.index].id
 }
