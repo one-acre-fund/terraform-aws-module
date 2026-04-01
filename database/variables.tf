@@ -43,6 +43,7 @@ variable "tags" {
 variable "db_name" {
   description = ""
   type        = string
+  default     = ""
 }
 
 
@@ -66,6 +67,7 @@ locals {
     sqlserver-ee = "15.00.4312.2.v1" # SQL Server version for sqlserver-ee
     postgres     = "16.10"           # PostgreSQL version
   }
+  type = string
 
   # Select the appropriate version based on the engine
   engine_version = lookup(local.engine_versions_map, var.engine)

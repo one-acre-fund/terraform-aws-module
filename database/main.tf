@@ -1,7 +1,12 @@
 # ---------------------------
 # DB Subnet Group
 # ---------------------------
+data "aws_db_subnet_group" "existing" {
+  name = var.db_subnet_group_name
+}
+
 resource "aws_db_subnet_group" "this" {
+  count      = try(data.aws_db_subnet_group.existing.id, null) == null ? 1 : 0
   name       = var.db_subnet_group_name
   subnet_ids = var.subnet_ids
 
@@ -17,7 +22,7 @@ resource "aws_db_subnet_group" "this" {
 resource "aws_db_instance" "this" {
   allocated_storage           = var.storage
   identifier                  = var.db_identifier
-  db_subnet_group_name        = aws_db_subnet_group.this.name
+  db_subnet_group_name        = try(data.aws_db_subnet_group.existing.name, aws_db_subnet_group.this[0].name)
   engine                      = var.engine
   engine_version              = var.engine_version
   license_model               = var.license_model
