@@ -40,6 +40,11 @@ resource "aws_instance" "this" {
       error_message = "At least 2 subnets must be provided in ${var.enable_public ? "public_subnets" : "private_subnets"}."
     }
 
+    precondition {
+      condition     = !var.enable_eip || var.enable_public
+      error_message = "enable_eip requires enable_public = true so the instance is placed in a public subnet with an IGW route."
+    }
+
     ignore_changes = [ami]
   }
 }

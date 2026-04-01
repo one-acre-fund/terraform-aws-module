@@ -139,11 +139,6 @@ variable "enable_eip" {
   description = "If true, an Elastic IP is allocated and associated with each instance. Requires enable_public = true."
   type        = bool
   default     = false
-
-  validation {
-    condition     = !var.enable_eip || var.enable_public
-    error_message = "enable_eip requires enable_public = true so the instance is placed in a public subnet with an IGW route."
-  }
 }
 
 variable "additional_volumes" {

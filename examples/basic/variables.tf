@@ -145,11 +145,6 @@ variable "ec2_enable_eip" {
   description = "If true, allocate and associate an Elastic IP per instance. Requires ec2_enable_public = true."
   type        = bool
   default     = false
-
-  validation {
-    condition     = !var.ec2_enable_eip || var.ec2_enable_public
-    error_message = "ec2_enable_eip requires ec2_enable_public = true so the instance is placed in a public subnet with an IGW route."
-  }
 }
 
 variable "ec2_ami" {
