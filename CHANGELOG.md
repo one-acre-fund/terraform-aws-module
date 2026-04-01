@@ -1,3 +1,10 @@
+## [1.8.20](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.19...v1.8.20) (2026-04-01)
+
+
+### Bug Fixes
+
+* Added eip and public ip condition ([3848c0b](https://github.com/one-acre-fund/terraform-aws-module/commit/3848c0b351e6ea9b67e096420aaded51087f8b03))
+
 ## [1.8.19](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.18...v1.8.19) (2026-03-31)
 
 
