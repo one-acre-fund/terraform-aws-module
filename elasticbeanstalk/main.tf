@@ -23,7 +23,7 @@ resource "aws_elastic_beanstalk_application" "this" {
 # ---------------------------
 resource "aws_elastic_beanstalk_environment" "this" {
   name                = local.env_name
-  application         = var.create_application ? local.app_name_computed : var.app_name
+  application         = var.create_application ? aws_elastic_beanstalk_application.this[0].name : var.app_name
   solution_stack_name = var.solution_stack_name
   tier                = var.tier
   cname_prefix        = local.cname_prefix_computed
