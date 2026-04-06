@@ -17,3 +17,4 @@ locals {
   # <application>-<environment>  →  <application>-<environment>.eu-west-1.elasticbeanstalk.com
   cname_prefix_computed = var.cname_prefix != "" ? var.cname_prefix : "${var.application}-${var.environment}"
 }
+
