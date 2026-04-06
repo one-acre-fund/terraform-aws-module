@@ -509,3 +509,4 @@ resource "aws_elastic_beanstalk_environment" "this" {
     Name = local.env_name
   })
 }
+
