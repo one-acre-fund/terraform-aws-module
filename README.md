@@ -219,3 +219,4 @@ Version 1.8.25
 Version 1.8.26
 Version 1.9.0
 Version 1.9.1
+Version 1.9.2

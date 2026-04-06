@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.1...v1.9.2) (2026-04-06)
+
+
+### Bug Fixes
+
+* spacing ([8bf218e](https://github.com/one-acre-fund/terraform-aws-module/commit/8bf218e011b38799e3d285f7b21e722a56d42b72))
+
 ## [1.9.1](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.0...v1.9.1) (2026-04-06)
 
 
