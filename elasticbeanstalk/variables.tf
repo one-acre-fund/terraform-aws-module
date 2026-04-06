@@ -292,7 +292,7 @@ variable "preferred_update_start_time" {
 # ---------------------------
 
 variable "enable_log_streaming" {
-  description = "Stream EB instance and health logs to CloudWatch Logs. Log groups follow the path /<application>/<environment>/application and /<application>/<environment>/health."
+  description = "Stream EB instance and health logs to CloudWatch Logs. AWS controls the log group names: /aws/elasticbeanstalk/<env>/var/log/... for instance logs and /aws/elasticbeanstalk/<env>/environment-health for health logs."
   type        = bool
   default     = true
 }
