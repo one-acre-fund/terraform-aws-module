@@ -217,3 +217,4 @@ Version 1.8.23
 Version 1.8.24
 Version 1.8.25
 Version 1.8.26
+Version 1.9.0
