@@ -484,15 +484,6 @@ resource "aws_elastic_beanstalk_environment" "this" {
     }
   }
 
-  dynamic "setting" {
-    for_each = var.enable_log_streaming ? [1] : []
-    content {
-      namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
-      name      = "LogGroupName"
-      value     = "/${var.application}/${var.environment}/health"
-    }
-  }
-
   # ---------------------------
   # Environment Variables
   # ---------------------------
