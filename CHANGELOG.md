@@ -1,3 +1,10 @@
+## [1.9.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.6...v1.9.7) (2026-04-06)
+
+
+### Bug Fixes
+
+* fixed ec2 eb naming conevtion ([fd658f3](https://github.com/one-acre-fund/terraform-aws-module/commit/fd658f3079ee6bdb84a204c5f75c61afd0039490))
+
 ## [1.9.6](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.5...v1.9.6) (2026-04-06)
 
 
