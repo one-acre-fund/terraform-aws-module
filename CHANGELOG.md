@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.0...v1.9.1) (2026-04-06)
+
+
+### Bug Fixes
+
+* naming and config ([9f52ed1](https://github.com/one-acre-fund/terraform-aws-module/commit/9f52ed1e4e7d068f6a86c2513ebda3cb771b217c))
+
 # [1.9.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.26...v1.9.0) (2026-04-06)
 
 
