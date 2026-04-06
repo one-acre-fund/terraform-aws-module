@@ -1,3 +1,10 @@
+## [1.9.6](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.5...v1.9.6) (2026-04-06)
+
+
+### Bug Fixes
+
+* log group name for eb ([0984c95](https://github.com/one-acre-fund/terraform-aws-module/commit/0984c95a634eea158b867d2bffb7229040965240))
+
 ## [1.9.5](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.4...v1.9.5) (2026-04-06)
 
 
