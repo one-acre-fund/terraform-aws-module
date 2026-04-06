@@ -83,3 +83,15 @@ ec2_additional_volumes = [
     encrypted   = true
   }
 ]
+
+##############################################
+# Elastic Beanstalk
+# app:   elasticbeanstalk-my-app-prod
+# env:   elasticbeanstalk-env-my-app-prod
+# cname: my-app-prod.eu-west-1.elasticbeanstalk.com
+##############################################
+eb_solution_stack_name = "64bit Amazon Linux 2023 v4.3.0 running Python 3.11"
+eb_instance_type       = "t3.medium"
+eb_min_instances       = 2
+eb_max_instances       = 4
+eb_certificate_arn     = "" # replace with your ACM certificate ARN

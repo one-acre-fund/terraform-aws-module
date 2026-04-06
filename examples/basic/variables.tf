@@ -170,3 +170,29 @@ variable "ec2_additional_volumes" {
   }))
   default = []
 }
+
+##############################################
+# Elastic Beanstalk
+##############################################
+variable "eb_solution_stack_name" {
+  description = "Elastic Beanstalk solution stack name (e.g. '64bit Amazon Linux 2023 v4.3.0 running Python 3.11')."
+  type        = string
+}
+
+variable "eb_instance_type" {
+  description = "EC2 instance type for the EB environment."
+  type        = string
+  default     = "t3.small"
+}
+
+variable "eb_min_instances" {
+  description = "Minimum number of instances in the EB Auto Scaling group."
+  type        = number
+  default     = 1
+}
+
+variable "eb_max_instances" {
+  description = "Maximum number of instances in the EB Auto Scaling group."
+  type        = number
+  default     = 2
+}

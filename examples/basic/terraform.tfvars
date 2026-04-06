@@ -55,3 +55,14 @@ ec2_additional_volumes = [
     encrypted   = true
   }
 ]
+
+##############################################
+# Elastic Beanstalk
+# app:   elasticbeanstalk-my-app-dev
+# env:   elasticbeanstalk-env-my-app-dev
+# cname: my-app-dev.eu-west-1.elasticbeanstalk.com
+##############################################
+eb_solution_stack_name = "64bit Amazon Linux 2023 v4.3.0 running Python 3.11"
+eb_instance_type       = "t3.small"
+eb_min_instances       = 1
+eb_max_instances       = 2

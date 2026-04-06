@@ -300,6 +300,116 @@ module "ec2" {
 }
 
 ##############################################
+# IAM — Elastic Beanstalk service role
+##############################################
+module "eb_service_role" {
+  source = "../../global/iam"
+
+  role_name        = "${var.application}-${var.environment}-eb-service-role"
+  role_description = "IAM service role for Elastic Beanstalk"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow"
+        Principal = { Service = "elasticbeanstalk.amazonaws.com" }
+        Action    = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth",
+    "arn:aws:iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy",
+  ]
+
+  environment = var.environment
+  application = var.application
+  cost_centre = var.cost_centre
+  owner       = var.owner
+  managed_by  = var.managed_by
+  tags        = var.tags
+}
+
+##############################################
+# IAM — Elastic Beanstalk EC2 instance role
+##############################################
+module "eb_instance_role" {
+  source = "../../global/iam"
+
+  role_name        = "${var.application}-${var.environment}-eb-ec2-role"
+  role_description = "IAM instance role for Elastic Beanstalk EC2 instances"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow"
+        Principal = { Service = "ec2.amazonaws.com" }
+        Action    = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier",
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+  ]
+
+  create_instance_profile = true
+
+  environment = var.environment
+  application = var.application
+  cost_centre = var.cost_centre
+  owner       = var.owner
+  managed_by  = var.managed_by
+  tags        = var.tags
+}
+
+##############################################
+# Elastic Beanstalk
+# app:   elasticbeanstalk-<application>-<environment>
+# env:   elasticbeanstalk-env-<application>-<environment>
+# cname: <application>-<environment>.eu-west-1.elasticbeanstalk.com
+##############################################
+module "elasticbeanstalk" {
+  source = "../../elasticbeanstalk"
+
+  environment = var.environment
+  application = var.application
+  cost_centre = var.cost_centre
+  owner       = var.owner
+  managed_by  = var.managed_by
+  tags        = var.tags
+
+  app_name             = var.application
+  service_role_arn     = module.eb_service_role.role_arn
+  iam_instance_profile = module.eb_instance_role.instance_profile_name
+
+  solution_stack_name = var.eb_solution_stack_name
+
+  vpc_id           = module.vpc.vpc_id
+  instance_subnets = local.ec2_app_private_subnets
+  elb_subnets      = module.vpc.public_subnet_ids
+  elb_scheme       = "public"
+
+  security_groups = [module.app_sg.security_group_id]
+
+  instance_type = var.eb_instance_type
+  min_instances = var.eb_min_instances
+  max_instances = var.eb_max_instances
+
+  enable_https    = var.eb_certificate_arn != "" ? true : false
+  certificate_arn = var.eb_certificate_arn
+
+  deployment_policy   = "RollingWithAdditionalBatch"
+  rolling_update_type = "Health"
+
+  depends_on = [module.vpc, module.eb_service_role, module.eb_instance_role]
+}
+
+##############################################
 # Outputs
 ##############################################
 output "vpc_id" {
@@ -425,4 +535,24 @@ output "ec2_additional_volume_ids" {
 output "ec2_elastic_ips" {
   description = "Elastic IPs allocated to EC2 instances (empty if enable_eip = false)"
   value       = module.ec2.elastic_ips
+}
+
+output "eb_application_name" {
+  description = "Elastic Beanstalk application name (elasticbeanstalk-<app>-<env>)"
+  value       = module.elasticbeanstalk.application_name
+}
+
+output "eb_environment_name" {
+  description = "Elastic Beanstalk environment name (elasticbeanstalk-env-<app>-<env>)"
+  value       = module.elasticbeanstalk.environment_name
+}
+
+output "eb_cname" {
+  description = "Elastic Beanstalk environment CNAME"
+  value       = module.elasticbeanstalk.cname
+}
+
+output "eb_endpoint_url" {
+  description = "Elastic Beanstalk environment load balancer DNS"
+  value       = module.elasticbeanstalk.endpoint_url
 }
