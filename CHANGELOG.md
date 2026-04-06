@@ -1,3 +1,38 @@
+## [1.8.26](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.25...v1.8.26) (2026-04-01)
+
+
+### Bug Fixes
+
+* Modified examples ([01dd7e5](https://github.com/one-acre-fund/terraform-aws-module/commit/01dd7e5ec5c2565ba44b8758c8e3c4ba35800071))
+
+## [1.8.25](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.24...v1.8.25) (2026-04-01)
+
+
+### Bug Fixes
+
+* modified database main.tf ([0f0a0b3](https://github.com/one-acre-fund/terraform-aws-module/commit/0f0a0b323c80d18764b3333285c3fa92aae024d6))
+
+## [1.8.24](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.23...v1.8.24) (2026-04-01)
+
+
+### Bug Fixes
+
+* modified database main.tf ([e2fe5ba](https://github.com/one-acre-fund/terraform-aws-module/commit/e2fe5ba3fd6f70ee8ae4bf5bdddf4fff5d76e6bc))
+
+## [1.8.23](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.22...v1.8.23) (2026-04-01)
+
+
+### Bug Fixes
+
+* modified database code ([54ae408](https://github.com/one-acre-fund/terraform-aws-module/commit/54ae408c5bef3641358bbc639326176cd38358a8))
+
+## [1.8.22](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.21...v1.8.22) (2026-04-01)
+
+
+### Bug Fixes
+
+* fixed tflint ([1421b4f](https://github.com/one-acre-fund/terraform-aws-module/commit/1421b4f2776523c96329deb2befb6fbb79b58740))
+
 ## [1.8.21](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.20...v1.8.21) (2026-04-01)
 
 

@@ -154,14 +154,14 @@ module "database" {
 
   db_identifier        = "${var.application}-${var.environment}-db"
   db_subnet_group_name = "${var.application}-${var.environment}-subnet-grp"
-  subnet_ids           = module.vpc.private_subnet_ids
-  db_name              = var.db_engine == "postgres" ? var.db_name : null
-  engine               = var.db_engine
-  engine_version       = var.db_engine_version
-  instance_class       = var.db_instance_class
-  storage              = var.db_storage
-  username             = var.db_username
-  license_model        = var.db_license_model
+  #subnet_ids           = module.vpc.private_subnet_ids
+  db_name        = var.db_engine == "postgres" ? var.db_name : null
+  engine         = var.db_engine
+  engine_version = var.db_engine_version
+  instance_class = var.db_instance_class
+  storage        = var.db_storage
+  username       = var.db_username
+  license_model  = var.db_license_model
 
   vpc_security_group_ids      = [module.rds_sg.security_group_id]
   manage_master_user_password = true

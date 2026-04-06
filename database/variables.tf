@@ -43,6 +43,7 @@ variable "tags" {
 variable "db_name" {
   description = ""
   type        = string
+  default     = ""
 }
 
 
@@ -73,12 +74,12 @@ variable "instance_class" {
   default     = "db.t3.micro"
 }
 
-variable "subnet_ids" {
-  description = ""
-  type        = list(string)
-  default     = ["subnet-0962fa78f6c20fcc0", "subnet-0b6393167ed9e2e0f"]
+# variable "subnet_ids" {
+#   description = ""
+#   type        = list(string)
+#   default     = ["subnet-0962fa78f6c20fcc0", "subnet-0b6393167ed9e2e0f"]
 
-}
+# }
 
 variable "db_identifier" {
   description = ""
