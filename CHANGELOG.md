@@ -1,3 +1,15 @@
+# [1.9.0](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.26...v1.9.0) (2026-04-06)
+
+
+### Bug Fixes
+
+* examples folder ([1211a33](https://github.com/one-acre-fund/terraform-aws-module/commit/1211a33b254aeff0f59e44ef7ace6e89afc9166c))
+
+
+### Features
+
+* created elasticbean module ([4664dc9](https://github.com/one-acre-fund/terraform-aws-module/commit/4664dc9c99452fa30904b661bd8d22dd8dfa18e6))
+
 ## [1.8.26](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.8.25...v1.8.26) (2026-04-01)
 
 
