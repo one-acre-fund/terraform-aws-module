@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.4...v1.9.5) (2026-04-06)
+
+
+### Bug Fixes
+
+* removed health log group for eb ([be4a1ba](https://github.com/one-acre-fund/terraform-aws-module/commit/be4a1ba47307832f37acf24012f714d8a0b144eb))
+
 ## [1.9.4](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.3...v1.9.4) (2026-04-06)
 
 
