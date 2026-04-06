@@ -286,3 +286,188 @@ variable "preferred_update_start_time" {
   type        = string
   default     = "Sun:04:00"
 }
+
+# ---------------------------
+# CloudWatch Log Streaming
+# ---------------------------
+
+variable "enable_log_streaming" {
+  description = "Stream EB instance and health logs to CloudWatch Logs. Log groups follow the path /<application>/<environment>/application and /<application>/<environment>/health."
+  type        = bool
+  default     = true
+}
+
+variable "log_retention_days" {
+  description = "Number of days to retain CloudWatch log streams for the EB environment."
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = contains([1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653], var.log_retention_days)
+    error_message = "log_retention_days must be a valid CloudWatch Logs retention period."
+  }
+}
+
+# ---------------------------
+# Root Volume
+# ---------------------------
+
+variable "root_volume_type" {
+  description = "Root EBS volume type for EB EC2 instances (gp2, gp3, io1)."
+  type        = string
+  default     = "gp3"
+}
+
+variable "root_volume_size" {
+  description = "Root EBS volume size in GB."
+  type        = number
+  default     = 8
+}
+
+variable "root_volume_iops" {
+  description = "Provisioned IOPS for the root EBS volume. Set > 0 to apply (required for io1, optional for gp3)."
+  type        = number
+  default     = 0
+}
+
+variable "root_volume_throughput" {
+  description = "Throughput in MB/s for the root EBS volume. Set > 0 to apply (gp3 only)."
+  type        = number
+  default     = 0
+}
+
+# ---------------------------
+# Instance / IMDS / AMI
+# ---------------------------
+
+variable "disable_imdsv1" {
+  description = "Disable IMDSv1 on EB EC2 instances, enforcing IMDSv2 only."
+  type        = bool
+  default     = true
+}
+
+variable "ami_id" {
+  description = "Custom AMI ID for EB EC2 instances. Leave empty to use the platform default."
+  type        = string
+  default     = ""
+}
+
+# ---------------------------
+# Fleet Composition
+# ---------------------------
+
+variable "instance_types" {
+  description = "List of EC2 instance types for mixed-instance Auto Scaling (e.g. ['t3.large', 't3.medium']). When non-empty, supersedes instance_type and uses aws:ec2:instances settings."
+  type        = list(string)
+  default     = []
+}
+
+variable "on_demand_base" {
+  description = "Minimum number of On-Demand instances in the Auto Scaling group baseline."
+  type        = number
+  default     = 0
+}
+
+variable "on_demand_above_base_pct" {
+  description = "Percentage of On-Demand instances above on_demand_base. Remainder are Spot. 100 = all On-Demand."
+  type        = number
+  default     = 100
+}
+
+variable "supported_architectures" {
+  description = "CPU architecture for instance type selection: x86_64 or arm64."
+  type        = string
+  default     = "x86_64"
+}
+
+variable "enable_capacity_rebalancing" {
+  description = "Enable Capacity Rebalancing for Spot Instances in the Auto Scaling group."
+  type        = bool
+  default     = false
+}
+
+# ---------------------------
+# Scaling Trigger
+# ---------------------------
+
+variable "scaling_cooldown" {
+  description = "Cooldown period in seconds between Auto Scaling activities."
+  type        = number
+  default     = 360
+}
+
+variable "scaling_metric" {
+  description = "CloudWatch metric used to trigger Auto Scaling (e.g. NetworkOut, CPUUtilization)."
+  type        = string
+  default     = "NetworkOut"
+}
+
+variable "scaling_statistic" {
+  description = "Statistic to apply to the scaling metric: Average, Minimum, Maximum, Sum."
+  type        = string
+  default     = "Average"
+}
+
+variable "scaling_unit" {
+  description = "Unit for the scaling metric (e.g. Bytes, Percent, Count)."
+  type        = string
+  default     = "Bytes"
+}
+
+variable "scaling_period" {
+  description = "Time period in minutes over which the scaling metric is evaluated."
+  type        = number
+  default     = 5
+}
+
+variable "scaling_breach_duration" {
+  description = "Number of consecutive periods the metric must breach a threshold before scaling."
+  type        = number
+  default     = 5
+}
+
+variable "scaling_upper_threshold" {
+  description = "Upper metric threshold that triggers a scale-out event."
+  type        = number
+  default     = 6000000
+}
+
+variable "scaling_upper_increment" {
+  description = "Number of instances to add during a scale-out event."
+  type        = number
+  default     = 1
+}
+
+variable "scaling_lower_threshold" {
+  description = "Lower metric threshold that triggers a scale-in event."
+  type        = number
+  default     = 2000000
+}
+
+variable "scaling_lower_increment" {
+  description = "Number of instances to remove during a scale-in event (use a negative value)."
+  type        = number
+  default     = -1
+}
+
+# ---------------------------
+# Load Balancer (ALB)
+# ---------------------------
+
+variable "lb_shared" {
+  description = "Whether the load balancer is shared across EB environments."
+  type        = bool
+  default     = false
+}
+
+variable "lb_access_logs_enabled" {
+  description = "Enable ALB access log storage to S3."
+  type        = bool
+  default     = false
+}
+
+variable "lb_ip_address_type" {
+  description = "IP address type for the ALB: ipv4 or dualstack."
+  type        = string
+  default     = "ipv4"
+}

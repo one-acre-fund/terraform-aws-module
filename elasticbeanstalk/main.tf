@@ -67,10 +67,14 @@ resource "aws_elastic_beanstalk_environment" "this" {
   # ---------------------------
   # Launch Configuration / Instance
   # ---------------------------
-  setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name      = "InstanceType"
-    value     = var.instance_type
+  # Single instance type — overridden when instance_types list is non-empty
+  dynamic "setting" {
+    for_each = length(var.instance_types) == 0 ? [1] : []
+    content {
+      namespace = "aws:autoscaling:launchconfiguration"
+      name      = "InstanceType"
+      value     = var.instance_type
+    }
   }
 
   setting {
@@ -97,6 +101,51 @@ resource "aws_elastic_beanstalk_environment" "this" {
     }
   }
 
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "RootVolumeType"
+    value     = var.root_volume_type
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "RootVolumeSize"
+    value     = tostring(var.root_volume_size)
+  }
+
+  dynamic "setting" {
+    for_each = var.root_volume_iops > 0 ? [1] : []
+    content {
+      namespace = "aws:autoscaling:launchconfiguration"
+      name      = "RootVolumeIOPS"
+      value     = tostring(var.root_volume_iops)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.root_volume_throughput > 0 ? [1] : []
+    content {
+      namespace = "aws:autoscaling:launchconfiguration"
+      name      = "RootVolumeThroughput"
+      value     = tostring(var.root_volume_throughput)
+    }
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "DisableIMDSv1"
+    value     = tostring(var.disable_imdsv1)
+  }
+
+  dynamic "setting" {
+    for_each = var.ami_id != "" ? [1] : []
+    content {
+      namespace = "aws:autoscaling:launchconfiguration"
+      name      = "ImageId"
+      value     = var.ami_id
+    }
+  }
+
   # ---------------------------
   # Auto Scaling
   # ---------------------------
@@ -112,6 +161,114 @@ resource "aws_elastic_beanstalk_environment" "this" {
     value     = tostring(var.max_instances)
   }
 
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "Cooldown"
+    value     = tostring(var.scaling_cooldown)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "EnableCapacityRebalancing"
+    value     = tostring(var.enable_capacity_rebalancing)
+  }
+
+  # ---------------------------
+  # Fleet Composition / Instance Types
+  # ---------------------------
+  dynamic "setting" {
+    for_each = length(var.instance_types) > 0 ? [1] : []
+    content {
+      namespace = "aws:ec2:instances"
+      name      = "InstanceTypes"
+      value     = join(",", var.instance_types)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = length(var.instance_types) > 0 ? [1] : []
+    content {
+      namespace = "aws:ec2:instances"
+      name      = "SpotFleetOnDemandBase"
+      value     = tostring(var.on_demand_base)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = length(var.instance_types) > 0 ? [1] : []
+    content {
+      namespace = "aws:ec2:instances"
+      name      = "SpotFleetOnDemandAboveBasePercentage"
+      value     = tostring(var.on_demand_above_base_pct)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = length(var.instance_types) > 0 ? [1] : []
+    content {
+      namespace = "aws:ec2:instances"
+      name      = "SupportedArchitectures"
+      value     = var.supported_architectures
+    }
+  }
+
+  # ---------------------------
+  # Scaling Trigger
+  # ---------------------------
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "MeasureName"
+    value     = var.scaling_metric
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "Statistic"
+    value     = var.scaling_statistic
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "Unit"
+    value     = var.scaling_unit
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "Period"
+    value     = tostring(var.scaling_period)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "BreachDuration"
+    value     = tostring(var.scaling_breach_duration)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "UpperThreshold"
+    value     = tostring(var.scaling_upper_threshold)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "UpperBreachScaleIncrement"
+    value     = tostring(var.scaling_upper_increment)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "LowerThreshold"
+    value     = tostring(var.scaling_lower_threshold)
+  }
+
+  setting {
+    namespace = "aws:autoscaling:trigger"
+    name      = "LowerBreachScaleIncrement"
+    value     = tostring(var.scaling_lower_increment)
+  }
+
   # ---------------------------
   # Load Balancer
   # ---------------------------
@@ -125,6 +282,12 @@ resource "aws_elastic_beanstalk_environment" "this" {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = var.service_role_arn
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerIsShared"
+    value     = tostring(var.lb_shared)
   }
 
   setting {
@@ -167,6 +330,27 @@ resource "aws_elastic_beanstalk_environment" "this" {
       namespace = "aws:elbv2:listener:443"
       name      = "SSLCertificateArns"
       value     = var.certificate_arn
+    }
+  }
+
+  # ---------------------------
+  # ALB Settings
+  # ---------------------------
+  dynamic "setting" {
+    for_each = var.load_balancer_type == "application" ? [1] : []
+    content {
+      namespace = "aws:elbv2:loadbalancer"
+      name      = "AccessLogsS3Enabled"
+      value     = tostring(var.lb_access_logs_enabled)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.load_balancer_type == "application" ? [1] : []
+    content {
+      namespace = "aws:elbv2:loadbalancer"
+      name      = "IpAddressType"
+      value     = var.lb_ip_address_type
     }
   }
 
@@ -233,6 +417,79 @@ resource "aws_elastic_beanstalk_environment" "this" {
       namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
       name      = "UpdateLevel"
       value     = var.managed_update_level
+    }
+  }
+
+  # ---------------------------
+  # CloudWatch Log Streaming
+  # Log group path: /[application]/[environment]/[component]
+  # ---------------------------
+  setting {
+    namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+    name      = "StreamLogs"
+    value     = tostring(var.enable_log_streaming)
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+      name      = "DeleteOnTerminate"
+      value     = "false"
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+      name      = "RetentionInDays"
+      value     = tostring(var.log_retention_days)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+      name      = "LogGroupName"
+      value     = "/${var.application}/${var.environment}/application"
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
+      name      = "HealthStreamingEnabled"
+      value     = "true"
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
+      name      = "DeleteOnTerminate"
+      value     = "false"
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
+      name      = "RetentionInDays"
+      value     = tostring(var.log_retention_days)
+    }
+  }
+
+  dynamic "setting" {
+    for_each = var.enable_log_streaming ? [1] : []
+    content {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
+      name      = "LogGroupName"
+      value     = "/${var.application}/${var.environment}/health"
     }
   }
 
