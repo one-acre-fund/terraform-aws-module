@@ -488,7 +488,7 @@ resource "aws_elastic_beanstalk_environment" "this" {
   }
 
   tags = merge(local.common_tags, {
-    Name = local.env_name
+    Name = "ec2-eb-${var.application}-${var.environment}"
   })
 }
 
