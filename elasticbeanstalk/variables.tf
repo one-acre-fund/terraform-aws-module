@@ -471,3 +471,4 @@ variable "lb_ip_address_type" {
   type        = string
   default     = "ipv4"
 }
+
