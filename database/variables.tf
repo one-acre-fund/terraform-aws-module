@@ -73,6 +73,11 @@ variable "instance_class" {
   type        = string
   default     = "db.t3.micro"
 }
+variable "deletion_protection" {
+  description = "Whether to enable deletion protection for the RDS instance"
+  type        = bool
+  default     = true
+}
 
 # variable "subnet_ids" {
 #   description = ""

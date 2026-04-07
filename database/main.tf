@@ -32,6 +32,7 @@ resource "aws_db_instance" "this" {
   db_name                     = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
   # <-- Add security groups here
   vpc_security_group_ids = var.vpc_security_group_ids
+  deletion_protection    = var.deletion_protection
 
   tags = merge(local.common_tags, {
     Name = var.db_identifier
