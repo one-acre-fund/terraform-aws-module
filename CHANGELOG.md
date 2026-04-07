@@ -1,3 +1,10 @@
+## [1.9.8](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.7...v1.9.8) (2026-04-07)
+
+
+### Bug Fixes
+
+* added deletion protection variable ([ead1757](https://github.com/one-acre-fund/terraform-aws-module/commit/ead1757150f5aebb6ff093dde64b64c8781b4954))
+
 ## [1.9.7](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.6...v1.9.7) (2026-04-06)
 
 
