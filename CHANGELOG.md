@@ -1,3 +1,10 @@
+## [1.9.9](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.8...v1.9.9) (2026-04-14)
+
+
+### Bug Fixes
+
+* modified apply_immediately for DB ([d0594b9](https://github.com/one-acre-fund/terraform-aws-module/commit/d0594b9f9933bcfe71eefaf7830d8319a16197b2))
+
 ## [1.9.8](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.7...v1.9.8) (2026-04-07)
 
 
