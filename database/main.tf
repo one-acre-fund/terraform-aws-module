@@ -33,6 +33,7 @@ resource "aws_db_instance" "this" {
   # <-- Add security groups here
   vpc_security_group_ids = var.vpc_security_group_ids
   deletion_protection    = var.deletion_protection
+  apply_immediately      = var.apply_immediately
 
   tags = merge(local.common_tags, {
     Name = var.db_identifier

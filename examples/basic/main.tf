@@ -88,8 +88,8 @@ module "rds_sg" {
 # Database — RDS
 ##############################################
 module "database" {
-  source = "../../database"
-
+  source               = "../../database"
+  apply_immediately    = var.apply_immediately
   environment          = var.environment
   application          = var.application
   cost_centre          = var.cost_centre

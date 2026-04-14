@@ -82,6 +82,11 @@ variable "flow_logs_retention_days" {
 ##############################################
 # Database
 ##############################################
+variable "apply_immediately" {
+  description = "Whether to apply changes immediately"
+  type        = bool
+  default     = true
+}
 variable "db_engine" {
   description = "RDS database engine"
   type        = string

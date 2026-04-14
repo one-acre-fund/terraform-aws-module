@@ -39,6 +39,11 @@ variable "tags" {
 
 
 #Database variables
+variable "apply_immediately" {
+  description = "Whether to apply changes immediately"
+  type        = bool
+  default     = false
+}
 
 variable "db_name" {
   description = ""

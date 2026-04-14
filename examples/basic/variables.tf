@@ -71,6 +71,11 @@ variable "private_subnet_purpose" {
 ##############################################
 # Database
 ##############################################
+variable "apply_immediately" {
+  description = "Whether to apply changes immediately"
+  type        = bool
+  default     = true
+}
 variable "db_engine" {
   description = "RDS database engine"
   type        = string

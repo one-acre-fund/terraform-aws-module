@@ -143,14 +143,14 @@ module "rds_sg" {
 # Database — RDS
 ##############################################
 module "database" {
-  source = "../../database"
-
-  environment = var.environment
-  application = var.application
-  cost_centre = var.cost_centre
-  owner       = var.owner
-  managed_by  = var.managed_by
-  tags        = var.tags
+  source            = "../../database"
+  apply_immediately = var.apply_immediately
+  environment       = var.environment
+  application       = var.application
+  cost_centre       = var.cost_centre
+  owner             = var.owner
+  managed_by        = var.managed_by
+  tags              = var.tags
 
   db_identifier        = "${var.application}-${var.environment}-db"
   db_subnet_group_name = "${var.application}-${var.environment}-subnet-grp"
