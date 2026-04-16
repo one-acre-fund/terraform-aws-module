@@ -1,3 +1,10 @@
+## [1.9.11](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.10...v1.9.11) (2026-04-16)
+
+
+### Bug Fixes
+
+* Added ignore lifecycle ([ecb6f39](https://github.com/one-acre-fund/terraform-aws-module/commit/ecb6f399fa85771d43e6c8652b28e3abf1f189a4))
+
 ## [1.9.10](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.9...v1.9.10) (2026-04-16)
 
 
