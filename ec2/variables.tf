@@ -161,6 +161,7 @@ variable "additional_volumes" {
     encrypted   = optional(bool, true)
     iops        = optional(number, null)
     throughput  = optional(number, null)
+    snapshot_id = optional(string, null)
   }))
   default = []
 }

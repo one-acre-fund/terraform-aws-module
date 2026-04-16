@@ -61,6 +61,7 @@ resource "aws_ebs_volume" "additional" {
   encrypted         = each.value.vol.encrypted
   iops              = each.value.vol.iops
   throughput        = each.value.vol.throughput
+  snapshot_id       = each.value.vol.snapshot_id
 
   tags = merge(local.common_tags, {
     Name = "vol-${each.value.app_name}-${var.environment}-${format("%02d", each.value.vol_number)}"
