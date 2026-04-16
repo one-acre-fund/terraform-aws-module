@@ -1,3 +1,10 @@
+## [1.9.10](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.9...v1.9.10) (2026-04-16)
+
+
+### Bug Fixes
+
+* Added DR strategy to EC2 ([00a228e](https://github.com/one-acre-fund/terraform-aws-module/commit/00a228ee49b23a772ecda852c52b85d20793f517))
+
 ## [1.9.9](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.8...v1.9.9) (2026-04-14)
 
 
