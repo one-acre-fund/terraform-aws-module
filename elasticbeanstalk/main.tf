@@ -16,6 +16,10 @@ resource "aws_elastic_beanstalk_application" "this" {
   tags = merge(local.common_tags, {
     Name = local.app_name_computed
   })
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 # ---------------------------
@@ -490,5 +494,9 @@ resource "aws_elastic_beanstalk_environment" "this" {
   tags = merge(local.common_tags, {
     Name = "ec2-eb-${var.application}-${var.environment}"
   })
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
