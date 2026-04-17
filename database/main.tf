@@ -63,24 +63,24 @@ resource "aws_db_parameter_group" "this" {
 # RDS Instance
 # ---------------------------
 resource "aws_db_instance" "this" {
-  allocated_storage           = var.storage
-  identifier                  = var.db_identifier
-  engine                      = var.engine
-  engine_version              = var.engine_version
-  license_model               = var.license_model
-  instance_class              = var.instance_class
-  username                    = var.username
-  skip_final_snapshot         = var.skip_final_snapshot
-  manage_master_user_password = var.manage_master_user_password
+  allocated_storage             = var.storage
+  identifier                    = var.db_identifier
+  engine                        = var.engine
+  engine_version                = var.engine_version
+  license_model                 = var.license_model
+  instance_class                = var.instance_class
+  username                      = var.username
+  skip_final_snapshot           = var.skip_final_snapshot
+  manage_master_user_password   = var.manage_master_user_password
   master_user_secret_kms_key_id = var.master_user_secret_kms_key_id != "" ? var.master_user_secret_kms_key_id : null
-  publicly_accessible         = var.publicly_accessible
-  db_subnet_group_name        = var.db_subnet_group_name
-  db_name                     = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
-  vpc_security_group_ids      = var.vpc_security_group_ids
-  deletion_protection         = var.deletion_protection
-  apply_immediately           = var.apply_immediately
-  multi_az                    = var.multi_az_enabled
-  max_allocated_storage       = var.environment == "prod" ? var.max_allocated_storage : null
+  publicly_accessible           = var.publicly_accessible
+  db_subnet_group_name          = var.db_subnet_group_name
+  db_name                       = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
+  vpc_security_group_ids        = var.vpc_security_group_ids
+  deletion_protection           = var.deletion_protection
+  apply_immediately             = var.apply_immediately
+  multi_az                      = var.multi_az_enabled
+  max_allocated_storage         = var.environment == "prod" ? var.max_allocated_storage : null
   # Encryption
   storage_encrypted = true
   kms_key_id        = var.kms_key_id != "" ? var.kms_key_id : null
