@@ -14,6 +14,51 @@
 
 # }
 
+# ---------------------------
+# IAM Role for Enhanced Monitoring
+# ---------------------------
+resource "aws_iam_role" "rds_monitoring" {
+  name = "rds-monitoring-${var.db_identifier}-${var.environment}-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = "monitoring.rds.amazonaws.com" }
+    }]
+  })
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role_policy_attachment" "rds_monitoring" {
+  role       = aws_iam_role.rds_monitoring.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+}
+
+# ---------------------------
+# DB Parameter Group (individual per instance)
+# ---------------------------
+resource "aws_db_parameter_group" "this" {
+  name        = var.db_identifier
+  family      = var.parameter_group_family
+  description = "Parameter group for ${var.db_identifier}"
+
+  dynamic "parameter" {
+    for_each = var.db_parameters
+    content {
+      name         = parameter.value.name
+      value        = parameter.value.value
+      apply_method = lookup(parameter.value, "apply_method", "immediate")
+    }
+  }
+
+  tags = merge(local.common_tags, {
+    Name = var.db_identifier
+  })
+}
+
 # --------------------------
 # RDS Instance
 # ---------------------------
@@ -27,17 +72,42 @@ resource "aws_db_instance" "this" {
   username                    = var.username
   skip_final_snapshot         = var.skip_final_snapshot
   manage_master_user_password = var.manage_master_user_password
+  master_user_secret_kms_key_id = var.master_user_secret_kms_key_id != "" ? var.master_user_secret_kms_key_id : null
   publicly_accessible         = var.publicly_accessible
   db_subnet_group_name        = var.db_subnet_group_name
   db_name                     = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
-  # <-- Add security groups here
-  vpc_security_group_ids = var.vpc_security_group_ids
-  deletion_protection    = var.deletion_protection
-  apply_immediately      = var.apply_immediately
+  vpc_security_group_ids      = var.vpc_security_group_ids
+  deletion_protection         = var.deletion_protection
+  apply_immediately           = var.apply_immediately
+  multi_az                    = var.multi_az_enabled
+  max_allocated_storage       = var.environment == "prod" ? var.max_allocated_storage : null
+  # Encryption
+  storage_encrypted = true
+  kms_key_id        = var.kms_key_id != "" ? var.kms_key_id : null
+
+  # Individual parameter group
+  parameter_group_name = aws_db_parameter_group.this.name
+
+  # Enhanced Monitoring
+  monitoring_interval = var.monitoring_interval
+  monitoring_role_arn = aws_iam_role.rds_monitoring.arn
 
   tags = merge(local.common_tags, {
     Name = var.db_identifier
   })
 
+  depends_on = [aws_iam_role_policy_attachment.rds_monitoring]
+}
 
+# ---------------------------
+# Secrets Manager Secret (individual per RDS, named /<env>/<app>/<rds-name>)
+# ---------------------------
+resource "aws_secretsmanager_secret" "rds" {
+  name        = "/${var.environment}/${var.application}/${var.db_identifier}"
+  description = "Credentials for RDS instance ${var.db_identifier}"
+  kms_key_id  = var.kms_key_id != "" ? var.kms_key_id : null
+
+  tags = merge(local.common_tags, {
+    Name = "/${var.environment}/${var.application}/${var.db_identifier}"
+  })
 }

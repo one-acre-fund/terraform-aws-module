@@ -51,6 +51,17 @@ variable "db_name" {
   default     = ""
 }
 
+variable "max_allocated_storage" {
+  description = "The maximum allocated storage for the RDS instance (in GiB)"
+  type        = number
+  default     = 1000
+}
+
+variable "multi_az_enabled" {
+  description = "Whether to enable Multi-AZ for the RDS instance"
+  type        = bool
+  default     = false
+}
 
 variable "engine" {
   description = "The type of database engine (sqlserver-ee or postgres)"
@@ -140,4 +151,37 @@ variable "vpc_security_group_ids" {
   description = "List of VPC security group IDs to assign to the RDS instance"
   type        = list(string)
   default     = []
+}
+
+variable "kms_key_id" {
+  description = "ARN of the KMS key to use for RDS storage encryption and Secrets Manager. Leave empty to use the AWS-managed key."
+  type        = string
+  default     = ""
+}
+
+variable "master_user_secret_kms_key_id" {
+  description = "ARN of the KMS key used to encrypt the master user secret in Secrets Manager. Leave empty to use the default key."
+  type        = string
+  default     = ""
+}
+
+variable "parameter_group_family" {
+  description = "DB parameter group family (e.g. sqlserver-ee-15.0, postgres16)"
+  type        = string
+}
+
+variable "db_parameters" {
+  description = "List of DB parameters to set in the parameter group"
+  type = list(object({
+    name         = string
+    value        = string
+    apply_method = optional(string, "immediate")
+  }))
+  default = []
+}
+
+variable "monitoring_interval" {
+  description = "Enhanced monitoring interval in seconds (0 to disable, valid values: 1, 5, 10, 15, 30, 60)"
+  type        = number
+  default     = 60
 }
