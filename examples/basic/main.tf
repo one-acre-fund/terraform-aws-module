@@ -109,7 +109,7 @@ module "database" {
   license_model  = var.db_license_model
 
   vpc_security_group_ids      = [module.rds_sg.security_group_id]
-  manage_master_user_password = true
+  #manage_master_user_password = true
   skip_final_snapshot         = true
   publicly_accessible         = false
 
