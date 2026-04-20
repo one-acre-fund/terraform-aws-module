@@ -110,10 +110,15 @@ variable "db_identifier" {
 }
 
 variable "storage" {
-  description = ""
+  description = "Allocated storage in GiB"
   default     = 20
   type        = number
+}
 
+variable "storage_type" {
+  description = "Storage type for the RDS instance (gp2, gp3, io1)"
+  type        = string
+  default     = "gp3"
 }
 
 variable "db_subnet_group_name" {
