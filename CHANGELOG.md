@@ -1,3 +1,10 @@
+## [1.9.19](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.18...v1.9.19) (2026-04-20)
+
+
+### Bug Fixes
+
+* added iops ([3f16fdd](https://github.com/one-acre-fund/terraform-aws-module/commit/3f16fdd2860b58130e16a85b1dc85a02b6b0a56d))
+
 ## [1.9.18](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.17...v1.9.18) (2026-04-20)
 
 
