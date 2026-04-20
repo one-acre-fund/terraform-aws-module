@@ -111,3 +111,16 @@ resource "aws_secretsmanager_secret" "rds" {
     Name = "/${var.environment}/${var.application}/${var.db_identifier}"
   })
 }
+
+resource "aws_secretsmanager_secret_version" "rds" {
+  secret_id = aws_secretsmanager_secret.rds.id
+
+  secret_string = jsonencode({
+    engine             = var.engine
+    host               = aws_db_instance.this.address
+    port               = aws_db_instance.this.port
+    username           = aws_db_instance.this.username
+    dbname             = aws_db_instance.this.db_name
+    rds_managed_secret = try(aws_db_instance.this.master_user_secret[0].secret_arn, "")
+  })
+}
