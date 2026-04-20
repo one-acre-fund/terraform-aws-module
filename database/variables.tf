@@ -136,7 +136,7 @@ variable "skip_final_snapshot" {
 }
 
 variable "manage_master_user_password" {
-  description = ""
+  description = "Enable AWS to manage master user password using Secrets Manager"
   type        = bool
   default     = true
 }

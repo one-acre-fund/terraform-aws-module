@@ -71,8 +71,8 @@ resource "aws_db_instance" "this" {
   instance_class                = var.instance_class
   username                      = var.username
   skip_final_snapshot           = var.skip_final_snapshot
-  manage_master_user_password   = var.manage_master_user_password
-  master_user_secret_kms_key_id = var.master_user_secret_kms_key_id != "" ? var.master_user_secret_kms_key_id : null
+  manage_master_user_password   = true
+  master_user_secret_kms_key_id = var.kms_key_id != "" ? var.kms_key_id : null
   publicly_accessible           = var.publicly_accessible
   db_subnet_group_name          = var.db_subnet_group_name
   db_name                       = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
@@ -105,7 +105,7 @@ resource "aws_db_instance" "this" {
 resource "aws_secretsmanager_secret" "rds" {
   name        = "/${var.environment}/${var.application}/${var.db_identifier}"
   description = "Credentials for RDS instance ${var.db_identifier}"
-  kms_key_id  = var.kms_key_id != "" ? var.kms_key_id : null
+  kms_key_id  = var.kms_key_id != "" ? var.kms_key_id : "alias/aws/secretsmanager"
 
   tags = merge(local.common_tags, {
     Name = "/${var.environment}/${var.application}/${var.db_identifier}"
@@ -121,6 +121,7 @@ resource "aws_secretsmanager_secret_version" "rds" {
     port               = aws_db_instance.this.port
     username           = aws_db_instance.this.username
     dbname             = aws_db_instance.this.db_name
+    rds_instance_arn   = aws_db_instance.this.arn
     rds_managed_secret = try(aws_db_instance.this.master_user_secret[0].secret_arn, "")
   })
 }
