@@ -1,3 +1,10 @@
+## [1.9.15](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.14...v1.9.15) (2026-04-20)
+
+
+### Bug Fixes
+
+* added scerts value block. ([9691d66](https://github.com/one-acre-fund/terraform-aws-module/commit/9691d663828060e3c2e5dac8475ca0daab018a6f))
+
 ## [1.9.14](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.13...v1.9.14) (2026-04-20)
 
 
