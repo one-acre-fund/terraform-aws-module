@@ -1,4 +1,13 @@
 # ---------------------------
+# Random Password
+# ---------------------------
+resource "random_password" "this" {
+  length           = 16
+  special          = true
+  override_special = "!#$%^&*()-_=+"
+}
+
+# ---------------------------
 # DB Subnet Group
 # ---------------------------
 
@@ -63,24 +72,23 @@ resource "aws_db_parameter_group" "this" {
 # RDS Instance
 # ---------------------------
 resource "aws_db_instance" "this" {
-  allocated_storage             = var.storage
-  identifier                    = var.db_identifier
-  engine                        = var.engine
-  engine_version                = var.engine_version
-  license_model                 = var.license_model
-  instance_class                = var.instance_class
-  username                      = var.username
-  skip_final_snapshot           = var.skip_final_snapshot
-  manage_master_user_password   = true
-  master_user_secret_kms_key_id = var.kms_key_id != "" ? var.kms_key_id : null
-  publicly_accessible           = var.publicly_accessible
-  db_subnet_group_name          = var.db_subnet_group_name
-  db_name                       = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
-  vpc_security_group_ids        = var.vpc_security_group_ids
-  deletion_protection           = var.deletion_protection
-  apply_immediately             = var.apply_immediately
-  multi_az                      = var.multi_az_enabled
-  max_allocated_storage         = var.environment == "prod" ? var.max_allocated_storage : null
+  allocated_storage      = var.storage
+  identifier             = var.db_identifier
+  engine                 = var.engine
+  engine_version         = var.engine_version
+  license_model          = var.license_model
+  instance_class         = var.instance_class
+  username               = var.username
+  password               = random_password.this.result
+  skip_final_snapshot    = var.skip_final_snapshot
+  publicly_accessible    = var.publicly_accessible
+  db_subnet_group_name   = var.db_subnet_group_name
+  db_name                = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
+  vpc_security_group_ids = var.vpc_security_group_ids
+  deletion_protection    = var.deletion_protection
+  apply_immediately      = var.apply_immediately
+  multi_az               = var.multi_az_enabled
+  max_allocated_storage  = var.environment == "prod" ? var.max_allocated_storage : null
   # Encryption
   storage_encrypted = true
   kms_key_id        = var.kms_key_id != "" ? var.kms_key_id : null
@@ -116,12 +124,12 @@ resource "aws_secretsmanager_secret_version" "rds" {
   secret_id = aws_secretsmanager_secret.rds.id
 
   secret_string = jsonencode({
-    engine             = var.engine
-    host               = aws_db_instance.this.address
-    port               = aws_db_instance.this.port
-    username           = aws_db_instance.this.username
-    dbname             = aws_db_instance.this.db_name
-    rds_instance_arn   = aws_db_instance.this.arn
-    rds_managed_secret = try(aws_db_instance.this.master_user_secret[0].secret_arn, "")
+    engine           = var.engine
+    host             = aws_db_instance.this.address
+    port             = aws_db_instance.this.port
+    username         = aws_db_instance.this.username
+    password         = random_password.this.result
+    dbname           = aws_db_instance.this.db_name
+    rds_instance_arn = aws_db_instance.this.arn
   })
 }

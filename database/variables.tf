@@ -135,12 +135,6 @@ variable "skip_final_snapshot" {
   default     = true
 }
 
-variable "manage_master_user_password" {
-  description = "Enable AWS to manage master user password using Secrets Manager"
-  type        = bool
-  default     = true
-}
-
 variable "publicly_accessible" {
   description = ""
   type        = bool
@@ -155,12 +149,6 @@ variable "vpc_security_group_ids" {
 
 variable "kms_key_id" {
   description = "ARN of the KMS key to use for RDS storage encryption and Secrets Manager. Leave empty to use the AWS-managed key."
-  type        = string
-  default     = ""
-}
-
-variable "master_user_secret_kms_key_id" {
-  description = "ARN of the KMS key used to encrypt the master user secret in Secrets Manager. Leave empty to use the default key."
   type        = string
   default     = ""
 }
