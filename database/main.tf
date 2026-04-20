@@ -74,6 +74,8 @@ resource "aws_db_parameter_group" "this" {
 resource "aws_db_instance" "this" {
   allocated_storage      = var.storage
   storage_type           = var.storage_type
+  iops                   = var.storage_type == "gp3" ? var.storage_iops : null
+  storage_throughput     = var.storage_type == "gp3" ? var.storage_throughput : null
   identifier             = var.db_identifier
   engine                 = var.engine
   engine_version         = var.engine_version
