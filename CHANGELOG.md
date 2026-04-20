@@ -1,3 +1,10 @@
+## [1.9.16](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.15...v1.9.16) (2026-04-20)
+
+
+### Bug Fixes
+
+* fixed secrets manager ([8d9655b](https://github.com/one-acre-fund/terraform-aws-module/commit/8d9655b40b4437efaff3bb606ecf1341f9cbe0ea))
+
 ## [1.9.15](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.14...v1.9.15) (2026-04-20)
 
 
