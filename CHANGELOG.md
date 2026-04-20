@@ -1,3 +1,10 @@
+## [1.9.17](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.16...v1.9.17) (2026-04-20)
+
+
+### Bug Fixes
+
+* added sg overiden ([70f7906](https://github.com/one-acre-fund/terraform-aws-module/commit/70f7906ada26b87b5e350bd12fa349bf7f53c7bc))
+
 ## [1.9.16](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.15...v1.9.16) (2026-04-20)
 
 
