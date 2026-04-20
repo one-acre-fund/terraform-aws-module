@@ -1,3 +1,10 @@
+## [1.9.18](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.17...v1.9.18) (2026-04-20)
+
+
+### Bug Fixes
+
+* gp2 to gp3 ([9fa8080](https://github.com/one-acre-fund/terraform-aws-module/commit/9fa80800c586e695e69cebb917f5e026f8679f7e))
+
 ## [1.9.17](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.16...v1.9.17) (2026-04-20)
 
 
