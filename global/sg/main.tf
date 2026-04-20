@@ -27,10 +27,13 @@ resource "aws_security_group_rule" "ingress" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  # Safe handling of optional cidr_blocks
-  cidr_blocks = coalesce(lookup(each.value, "cidr_blocks", []), [])
+  # Mutually exclusive: use SG source OR cidr_blocks, never both
+  cidr_blocks = (
+    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
+    ? null
+    : coalesce(lookup(each.value, "cidr_blocks", []), [])
+  )
 
-  # Safe handling of optional security_groups
   source_security_group_id = (
     length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
     ? lookup(each.value, "security_groups", [])[0]
@@ -54,10 +57,13 @@ resource "aws_security_group_rule" "egress" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  # Safe handling of optional cidr_blocks
-  cidr_blocks = coalesce(lookup(each.value, "cidr_blocks", []), [])
+  # Mutually exclusive: use SG source OR cidr_blocks, never both
+  cidr_blocks = (
+    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
+    ? null
+    : coalesce(lookup(each.value, "cidr_blocks", []), [])
+  )
 
-  # Safe handling of optional security_groups
   source_security_group_id = (
     length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
     ? lookup(each.value, "security_groups", [])[0]
