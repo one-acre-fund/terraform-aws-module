@@ -6,67 +6,37 @@ resource "aws_security_group" "this" {
   description = var.description
   vpc_id      = var.vpc_id
 
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      description              = lookup(ingress.value, "description", null)
+      from_port                = ingress.value.from_port
+      to_port                  = ingress.value.to_port
+      protocol                 = ingress.value.protocol
+      cidr_blocks              = length(coalesce(lookup(ingress.value, "security_groups", []), [])) > 0 ? null : coalesce(lookup(ingress.value, "cidr_blocks", []), [])
+      ipv6_cidr_blocks         = []
+      prefix_list_ids          = []
+      security_groups          = length(coalesce(lookup(ingress.value, "security_groups", []), [])) > 0 ? ingress.value.security_groups : []
+      self                     = false
+    }
+  }
+
+  dynamic "egress" {
+    for_each = var.egress_rules
+    content {
+      description              = lookup(egress.value, "description", null)
+      from_port                = egress.value.from_port
+      to_port                  = egress.value.to_port
+      protocol                 = egress.value.protocol
+      cidr_blocks              = length(coalesce(lookup(egress.value, "security_groups", []), [])) > 0 ? null : coalesce(lookup(egress.value, "cidr_blocks", []), [])
+      ipv6_cidr_blocks         = []
+      prefix_list_ids          = []
+      security_groups          = length(coalesce(lookup(egress.value, "security_groups", []), [])) > 0 ? egress.value.security_groups : []
+      self                     = false
+    }
+  }
+
   tags = merge(local.common_tags, {
     Name = var.name
   })
-}
-
-# ---------------------------
-# Ingress Rules
-# ---------------------------
-resource "aws_security_group_rule" "ingress" {
-  for_each = {
-    for idx, rule in var.ingress_rules : idx => rule
-  }
-
-  type              = "ingress"
-  security_group_id = aws_security_group.this.id
-
-  description = lookup(each.value, "description", null)
-  from_port   = each.value.from_port
-  to_port     = each.value.to_port
-  protocol    = each.value.protocol
-
-  # Mutually exclusive: use SG source OR cidr_blocks, never both
-  cidr_blocks = (
-    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
-    ? null
-    : coalesce(lookup(each.value, "cidr_blocks", []), [])
-  )
-
-  source_security_group_id = (
-    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
-    ? lookup(each.value, "security_groups", [])[0]
-    : null
-  )
-}
-
-# ---------------------------
-# Egress Rules
-# ---------------------------
-resource "aws_security_group_rule" "egress" {
-  for_each = {
-    for idx, rule in var.egress_rules : idx => rule
-  }
-
-  type              = "egress"
-  security_group_id = aws_security_group.this.id
-
-  description = lookup(each.value, "description", null)
-  from_port   = each.value.from_port
-  to_port     = each.value.to_port
-  protocol    = each.value.protocol
-
-  # Mutually exclusive: use SG source OR cidr_blocks, never both
-  cidr_blocks = (
-    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
-    ? null
-    : coalesce(lookup(each.value, "cidr_blocks", []), [])
-  )
-
-  source_security_group_id = (
-    length(coalesce(lookup(each.value, "security_groups", []), [])) > 0
-    ? lookup(each.value, "security_groups", [])[0]
-    : null
-  )
 }
