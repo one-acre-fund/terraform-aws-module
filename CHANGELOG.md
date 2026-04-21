@@ -1,3 +1,10 @@
+## [1.9.22](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.21...v1.9.22) (2026-04-21)
+
+
+### Bug Fixes
+
+* added sg dynamic block ([dc3ed59](https://github.com/one-acre-fund/terraform-aws-module/commit/dc3ed590350c4db35539eb34d5075ad1de2f5c77))
+
 ## [1.9.21](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.20...v1.9.21) (2026-04-20)
 
 
