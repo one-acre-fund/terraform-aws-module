@@ -1,3 +1,10 @@
+## [1.9.24](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.23...v1.9.24) (2026-04-21)
+
+
+### Bug Fixes
+
+* Added Sg dynamic blocks for ingress and egres ([53aadc0](https://github.com/one-acre-fund/terraform-aws-module/commit/53aadc0ef0f82e2db93b7b2f856562e89ac8efbf))
+
 ## [1.9.23](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.22...v1.9.23) (2026-04-21)
 
 
