@@ -1,3 +1,10 @@
+## [1.9.25](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.24...v1.9.25) (2026-04-24)
+
+
+### Bug Fixes
+
+* fixed parameter group ([6167243](https://github.com/one-acre-fund/terraform-aws-module/commit/6167243b4b46ef720148d5640de1369f1b40803f))
+
 ## [1.9.24](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.23...v1.9.24) (2026-04-21)
 
 
