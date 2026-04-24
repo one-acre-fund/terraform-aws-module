@@ -170,10 +170,12 @@ variable "kms_key_id" {
   default     = ""
 }
 
-# variable "parameter_group_family" {
-#   description = "DB parameter group family (e.g. sqlserver-ee-15.0, postgres16)"
-#   type        = string
-# }
+
+variable "parameter_group_family" {
+  description = "DB parameter group family (e.g. sqlserver-ee-15.0, postgres14, postgres16)"
+  type        = string
+  default     = ""
+}
 
 variable "db_parameters" {
   description = "List of DB parameters to set in the parameter group"

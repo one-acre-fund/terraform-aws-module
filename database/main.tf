@@ -51,7 +51,7 @@ resource "aws_iam_role_policy_attachment" "rds_monitoring" {
 # ---------------------------
 resource "aws_db_parameter_group" "this" {
   name        = var.db_identifier
-  family      = var.engine == "sqlserver-ee" ? "sqlserver-ee-15.0" : "postgres16"
+  family      = var.parameter_group_family != "" ? var.parameter_group_family : (var.engine == "sqlserver-ee" ? "sqlserver-ee-15.0" : "postgres16")
   description = "Parameter group for ${var.db_identifier}"
 
   dynamic "parameter" {
