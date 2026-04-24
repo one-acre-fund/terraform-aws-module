@@ -121,18 +121,6 @@ variable "storage_type" {
   default     = "gp3"
 }
 
-variable "storage_iops" {
-  description = "Provisioned IOPS for gp3/io1 storage (gp3 baseline: 3000)"
-  type        = number
-  default     = 3000
-}
-
-variable "storage_throughput" {
-  description = "Storage throughput in MiBps for gp3 (baseline: 125)"
-  type        = number
-  default     = 125
-}
-
 variable "db_subnet_group_name" {
   description = ""
   type        = string
