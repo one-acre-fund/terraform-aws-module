@@ -1,3 +1,10 @@
+## [1.9.27](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.26...v1.9.27) (2026-04-27)
+
+
+### Bug Fixes
+
+* retention period for rds ([26e7faf](https://github.com/one-acre-fund/terraform-aws-module/commit/26e7faf3da87222bb6cd4e7bd54a5faf13bda0a4))
+
 ## [1.9.26](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.25...v1.9.26) (2026-04-24)
 
 
