@@ -1,3 +1,10 @@
+## [1.9.26](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.25...v1.9.26) (2026-04-24)
+
+
+### Bug Fixes
+
+* fixed tflint ([598cc57](https://github.com/one-acre-fund/terraform-aws-module/commit/598cc574565ff086d9fd7e6fed83cb041769cac6))
+
 ## [1.9.25](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.24...v1.9.25) (2026-04-24)
 
 
