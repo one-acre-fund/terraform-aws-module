@@ -88,10 +88,11 @@ resource "aws_db_instance" "this" {
   db_subnet_group_name   = var.db_subnet_group_name
   db_name                = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
   vpc_security_group_ids = var.vpc_security_group_ids
-  deletion_protection    = var.deletion_protection
-  apply_immediately      = var.apply_immediately
-  multi_az               = var.multi_az_enabled
-  max_allocated_storage  = var.environment == "prod" ? var.max_allocated_storage : null
+  deletion_protection     = var.deletion_protection
+  apply_immediately       = var.apply_immediately
+  multi_az                = var.multi_az_enabled
+  backup_retention_period = var.backup_retention_period
+  max_allocated_storage   = var.environment == "prod" ? var.max_allocated_storage : null
   # Encryption
   storage_encrypted = true
   kms_key_id        = var.kms_key_id != "" ? var.kms_key_id : null

@@ -63,6 +63,12 @@ variable "multi_az_enabled" {
   default     = false
 }
 
+variable "backup_retention_period" {
+  description = "Number of days to retain automated backups. Must be >= 1 when multi_az_enabled is true."
+  type        = number
+  default     = 0
+}
+
 variable "engine" {
   description = "The type of database engine (sqlserver-ee or postgres)"
   type        = string
