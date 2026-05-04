@@ -1,3 +1,10 @@
+## [1.9.29](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.28...v1.9.29) (2026-05-04)
+
+
+### Bug Fixes
+
+* Updated s3 module ([38b43d3](https://github.com/one-acre-fund/terraform-aws-module/commit/38b43d385feb753115c093b0dc8ccea7c2aaef7d))
+
 ## [1.9.28](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.27...v1.9.28) (2026-04-27)
 
 
