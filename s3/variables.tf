@@ -152,3 +152,4 @@ variable "logging_target_prefix" {
   default     = "s3-access-logs/"
 }
 
+
