@@ -102,6 +102,12 @@ variable "restrict_public_buckets" {
   default     = true
 }
 
+variable "public_read_enabled" {
+  description = "Attach a bucket policy granting public s3:GetObject to all objects. Requires all block_public_* variables to be false."
+  type        = bool
+  default     = false
+}
+
 # Lifecycle rules
 variable "lifecycle_rules" {
   description = <<-EOT
