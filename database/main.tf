@@ -74,7 +74,7 @@ resource "aws_db_parameter_group" "this" {
 resource "aws_db_instance" "this" {
   allocated_storage = var.storage
   storage_type      = var.storage_type
-  #iops              = var.storage > 400 ? var.storage_iops : null
+  iops              = contains(["io1", "io2"], var.storage_type) ? var.iops : null
   #storage_throughput     = var.storage_type == "gp3" ? var.storage_throughput : null
   identifier              = var.db_identifier
   engine                  = var.engine
@@ -86,7 +86,7 @@ resource "aws_db_instance" "this" {
   skip_final_snapshot     = var.skip_final_snapshot
   publicly_accessible     = var.publicly_accessible
   db_subnet_group_name    = var.db_subnet_group_name
-  db_name                 = contains(["postgres", "sqlserver-ee"], var.engine) ? var.db_name : null
+  db_name                 = contains(["postgres", "mysql"], var.engine) ? var.db_name : null
   vpc_security_group_ids  = var.vpc_security_group_ids
   deletion_protection     = var.deletion_protection
   apply_immediately       = var.apply_immediately

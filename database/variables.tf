@@ -70,12 +70,12 @@ variable "backup_retention_period" {
 }
 
 variable "engine" {
-  description = "The type of database engine (sqlserver-ee or postgres)"
+  description = "The type of database engine (sqlserver-ee, postgres, or mysql)"
   type        = string
   default     = "sqlserver-ee" # Default to SQL Server Enterprise Edition
   validation {
-    condition     = contains(["sqlserver-ee", "postgres"], var.engine)
-    error_message = "Engine must be one of: sqlserver-ee, postgres."
+    condition     = contains(["sqlserver-ee", "postgres", "mysql"], var.engine)
+    error_message = "Engine must be one of: sqlserver-ee, postgres, mysql."
   }
 }
 
@@ -122,9 +122,15 @@ variable "storage" {
 }
 
 variable "storage_type" {
-  description = "Storage type for the RDS instance (gp2, gp3, io1)"
+  description = "Storage type for the RDS instance (gp2, gp3, io1, io2)"
   type        = string
   default     = "gp3"
+}
+
+variable "iops" {
+  description = "Provisioned IOPS for the RDS instance. Required when storage_type is io1 or io2."
+  type        = number
+  default     = null
 }
 
 variable "db_subnet_group_name" {
