@@ -137,3 +137,4 @@ resource "aws_secretsmanager_secret_version" "rds" {
     rds_instance_arn = aws_db_instance.this.arn
   })
 }
+
