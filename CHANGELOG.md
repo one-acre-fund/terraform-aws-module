@@ -1,3 +1,10 @@
+## [1.9.30](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.29...v1.9.30) (2026-05-06)
+
+
+### Bug Fixes
+
+* Added mysql ([2be52bd](https://github.com/one-acre-fund/terraform-aws-module/commit/2be52bd3b4048a8323409244a1bbd910d0995b30))
+
 ## [1.9.29](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.28...v1.9.29) (2026-05-04)
 
 
