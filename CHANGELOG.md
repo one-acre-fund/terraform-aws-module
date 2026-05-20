@@ -1,3 +1,10 @@
+## [1.9.31](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.30...v1.9.31) (2026-05-20)
+
+
+### Bug Fixes
+
+* added copy tags to snapshot ([7533544](https://github.com/one-acre-fund/terraform-aws-module/commit/753354442f2564660c14f3a15f3e20c44f97f22b))
+
 ## [1.9.30](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.29...v1.9.30) (2026-05-06)
 
 
