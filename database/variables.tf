@@ -192,3 +192,9 @@ variable "monitoring_interval" {
   type        = number
   default     = 60
 }
+
+variable "copy_tags_to_snapshot" {
+  description = "Copy all instance tags to snapshots created by automated backups or manual snapshots"
+  type        = bool
+  default     = true
+}

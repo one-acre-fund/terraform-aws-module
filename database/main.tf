@@ -92,6 +92,7 @@ resource "aws_db_instance" "this" {
   apply_immediately       = var.apply_immediately
   multi_az                = var.multi_az_enabled
   backup_retention_period = var.backup_retention_period
+  copy_tags_to_snapshot   = var.copy_tags_to_snapshot
   max_allocated_storage   = var.environment == "prod" ? var.max_allocated_storage : null
   # Encryption
   storage_encrypted = true
