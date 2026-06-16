@@ -76,25 +76,25 @@ resource "aws_db_instance" "this" {
   storage_type      = var.storage_type
   iops              = contains(["io1", "io2"], var.storage_type) ? var.iops : null
   #storage_throughput     = var.storage_type == "gp3" ? var.storage_throughput : null
-  identifier              = var.db_identifier
-  engine                  = var.engine
-  engine_version          = var.engine_version
-  license_model           = var.license_model
-  instance_class          = var.instance_class
-  username                = var.username
-  password                = random_password.this.result
-  skip_final_snapshot     = var.skip_final_snapshot
-  publicly_accessible     = var.publicly_accessible
-  db_subnet_group_name    = var.db_subnet_group_name
-  db_name                 = contains(["postgres", "mysql"], var.engine) ? var.db_name : null
-  vpc_security_group_ids  = var.vpc_security_group_ids
-  deletion_protection     = var.deletion_protection
-  apply_immediately       = var.apply_immediately
-  multi_az                = var.multi_az_enabled
-  backup_retention_period = var.backup_retention_period
-  copy_tags_to_snapshot   = var.copy_tags_to_snapshot
+  identifier                   = var.db_identifier
+  engine                       = var.engine
+  engine_version               = var.engine_version
+  license_model                = var.license_model
+  instance_class               = var.instance_class
+  username                     = var.username
+  password                     = random_password.this.result
+  skip_final_snapshot          = var.skip_final_snapshot
+  publicly_accessible          = var.publicly_accessible
+  db_subnet_group_name         = var.db_subnet_group_name
+  db_name                      = contains(["postgres", "mysql"], var.engine) ? var.db_name : null
+  vpc_security_group_ids       = var.vpc_security_group_ids
+  deletion_protection          = var.deletion_protection
+  apply_immediately            = var.apply_immediately
+  multi_az                     = var.multi_az_enabled
+  backup_retention_period      = var.backup_retention_period
+  copy_tags_to_snapshot        = var.copy_tags_to_snapshot
   performance_insights_enabled = var.performance_insights_enabled
-  max_allocated_storage   = var.environment == "prod" ? var.max_allocated_storage : null
+  max_allocated_storage        = var.environment == "prod" ? var.max_allocated_storage : null
   # Encryption
   storage_encrypted = true
   kms_key_id        = var.kms_key_id != "" ? var.kms_key_id : null
