@@ -82,6 +82,10 @@ resource "aws_eks_addon" "this" {
       tags_all,
       # pod identity associations are managed separately via aws_eks_pod_identity_association
       pod_identity_association,
+      # write-only fields; not read back by the provider after creation
+      preserve,
+      resolve_conflicts_on_create,
+      resolve_conflicts_on_update,
     ]
   }
 }
