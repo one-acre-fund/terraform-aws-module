@@ -207,6 +207,7 @@ variable "node_groups" {
     # Update config
     max_unavailable            = optional(number, 1)
     max_unavailable_percentage = optional(number, null) # mutually exclusive with max_unavailable
+    update_strategy            = optional(string, "DEFAULT")
 
     # Node repair
     node_repair_enabled = optional(bool, false)

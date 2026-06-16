@@ -102,6 +102,7 @@ resource "aws_eks_node_group" "this" {
   update_config {
     max_unavailable            = each.value.max_unavailable_percentage == null ? each.value.max_unavailable : null
     max_unavailable_percentage = each.value.max_unavailable_percentage
+    update_strategy            = each.value.update_strategy
   }
 
   node_repair_config {
