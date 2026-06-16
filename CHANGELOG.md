@@ -1,3 +1,10 @@
+## [1.9.34](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.33...v1.9.34) (2026-06-16)
+
+
+### Bug Fixes
+
+* fixed fmt ([6e27ab2](https://github.com/one-acre-fund/terraform-aws-module/commit/6e27ab232990af55eb83a613ed76f507622a29cc))
+
 ## [1.9.31](https://github.com/one-acre-fund/terraform-aws-module/compare/v1.9.30...v1.9.31) (2026-05-20)
 
 
