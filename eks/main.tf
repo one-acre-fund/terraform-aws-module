@@ -22,8 +22,10 @@ resource "aws_eks_cluster" "this" {
 
   lifecycle {
     ignore_changes = [
-      # kubernetes_network_config is set by AWS at creation and cannot be changed
+      # set by AWS at creation and cannot be changed
       kubernetes_network_config,
+      # AWS-managed attribute, not supported in Terraform config
+      zonal_shift_config,
     ]
   }
 }
