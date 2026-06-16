@@ -74,6 +74,16 @@ resource "aws_eks_addon" "this" {
   tags = merge(local.common_tags, {
     Name = "${aws_eks_cluster.this.name}-${each.key}"
   })
+
+  lifecycle {
+    ignore_changes = [
+      # tags on imported addons may differ; managed via default_tags
+      tags,
+      tags_all,
+      # pod identity associations are managed separately via aws_eks_pod_identity_association
+      pod_identity_association,
+    ]
+  }
 }
 
 # ---------------------------
