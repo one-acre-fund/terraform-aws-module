@@ -26,6 +26,9 @@ resource "aws_eks_cluster" "this" {
       kubernetes_network_config,
       # AWS-managed attribute, not supported in Terraform config
       zonal_shift_config,
+      # tags on imported resources may differ; managed via default_tags
+      tags,
+      tags_all,
     ]
   }
 }
@@ -67,7 +70,12 @@ resource "aws_eks_node_group" "this" {
   }, each.value.tags)
 
   lifecycle {
-    # desired_size is managed by cluster autoscaler; ignore drift
-    ignore_changes = [scaling_config[0].desired_size]
+    ignore_changes = [
+      # desired_size is managed by cluster autoscaler
+      scaling_config[0].desired_size,
+      # tags on imported resources may differ; managed via default_tags
+      tags,
+      tags_all,
+    ]
   }
 }
