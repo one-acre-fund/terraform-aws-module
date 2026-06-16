@@ -198,3 +198,9 @@ variable "copy_tags_to_snapshot" {
   type        = bool
   default     = true
 }
+
+variable "performance_insights_enabled" {
+  description = "Enable Performance Insights for the RDS instance"
+  type        = bool
+  default     = false
+}
