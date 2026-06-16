@@ -29,6 +29,11 @@ output "cluster_version" {
   value       = aws_eks_cluster.this.version
 }
 
+output "cluster_oidc_issuer" {
+  description = "OIDC issuer URL (used for IAM roles for service accounts)"
+  value       = aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
+
 output "node_group_arns" {
   description = "Map of node group logical key to ARN"
   value       = { for k, ng in aws_eks_node_group.this : k => ng.arn }
@@ -38,3 +43,9 @@ output "node_group_statuses" {
   description = "Map of node group logical key to status"
   value       = { for k, ng in aws_eks_node_group.this : k => ng.status }
 }
+
+output "addon_arns" {
+  description = "Map of addon name to ARN"
+  value       = { for k, a in aws_eks_addon.this : k => a.arn }
+}
+
