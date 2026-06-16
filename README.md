@@ -33,6 +33,12 @@ Reusable Terraform modules for provisioning core AWS infrastructure components w
 │   ├── outputs.tf
 │   ├── variables.tf
 │   └── versions.tf
+├── eks
+│   ├── locals.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── variables.tf
+│   └── versions.tf
 ├── elasticbeanstalk
 │   ├── locals.tf
 │   ├── main.tf
@@ -76,7 +82,7 @@ Reusable Terraform modules for provisioning core AWS infrastructure components w
 ├── CHANGELOG.md
 └── README.md
 
-12 directories, 43 files
+13 directories, 48 files
 ```
 <!-- END_FOLDER_STRUCTURE -->
 
