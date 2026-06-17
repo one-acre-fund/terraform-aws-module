@@ -71,6 +71,14 @@ resource "aws_eks_addon" "this" {
   configuration_values        = each.value.configuration_values
   preserve                    = each.value.preserve
 
+  dynamic "pod_identity_association" {
+    for_each = each.value.pod_identity_associations
+    content {
+      role_arn        = pod_identity_association.value.role_arn
+      service_account = pod_identity_association.value.service_account
+    }
+  }
+
   tags = merge(local.common_tags, {
     Name = "${aws_eks_cluster.this.name}-${each.key}"
   })
@@ -80,8 +88,6 @@ resource "aws_eks_addon" "this" {
       # tags on imported addons may differ; managed via default_tags
       tags,
       tags_all,
-      # pod identity associations are managed separately via aws_eks_pod_identity_association
-      pod_identity_association,
       # write-only fields; not read back by the provider after creation
       preserve,
       resolve_conflicts_on_create,

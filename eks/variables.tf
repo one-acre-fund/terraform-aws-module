@@ -178,6 +178,10 @@ variable "cluster_addons" {
     service_account_role_arn    = optional(string, null)
     configuration_values        = optional(string, null) # JSON string
     preserve                    = optional(bool, false)
+    pod_identity_associations = optional(list(object({
+      role_arn        = string
+      service_account = string
+    })), [])
   }))
   default = {}
 }
@@ -193,11 +197,11 @@ variable "node_groups" {
     subnet_ids      = list(string)
 
     # Instance config
-    instance_types = optional(list(string), ["t3.medium"])
-    ami_type       = optional(string, "AL2023_x86_64_STANDARD")
+    instance_types      = optional(list(string), ["t3.medium"])
+    ami_type            = optional(string, "AL2023_x86_64_STANDARD")
     ami_release_version = optional(string, null) # null = latest for the k8s version
-    capacity_type  = optional(string, "ON_DEMAND")
-    disk_size      = optional(number, null) # GB; null = AWS default (20)
+    capacity_type       = optional(string, "ON_DEMAND")
+    disk_size           = optional(number, null) # GB; null = AWS default (20)
 
     # Scaling
     min_size     = optional(number, 1)
